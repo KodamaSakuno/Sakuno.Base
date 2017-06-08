@@ -1,0 +1,20 @@
+version: 0.2-{build}
+branches:
+  only:
+  - master
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+init:
+- cmd: git config --global core.autocrlf true
+nuget:
+  disable_publish_on_pr: true
+before_build:
+- cmd: nuget restore
+build:
+  project: Sakuno.Base.sln
+  verbosity: minimal
+test:
+  assemblies:
+    only:
+    - tests\Sakuno.Base.Tests\bin\Release\Sakuno.Base.Tests.dll
