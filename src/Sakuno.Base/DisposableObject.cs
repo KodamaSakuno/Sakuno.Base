@@ -6,12 +6,12 @@ namespace Sakuno
     public class DisposableObject : IDisposable
     {
         volatile int _isDisposed;
-        public bool IsDisposed => _isDisposed == 1;
+        public bool IsDisposed => _isDisposed != 0;
 
         ~DisposableObject() => Dispose(false);
         public void Dispose()
         {
-            if (Interlocked.Exchange(ref _isDisposed, 1) != 0)
+            if (_isDisposed != 0 || Interlocked.CompareExchange(ref _isDisposed, 1, 0) != 0)
                 return;
 
             try
