@@ -56,7 +56,9 @@
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeUtil.cs" />
     <Compile Include="Disposable.cs" />
+    <Compile Include="DisposableExtensions.cs" />
     <Compile Include="DisposableObject.cs" />
+    <Compile Include="DisposableUtil.cs" />
     <Compile Include="DoubleExtensions.cs" />
     <Compile Include="DoubleUtil.cs" />
     <Compile Include="EnumUtil.cs" />
