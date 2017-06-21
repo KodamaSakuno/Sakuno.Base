@@ -13,18 +13,18 @@ namespace Sakuno
         public static string Join(this IEnumerable<string> values, string separator) => string.Join(separator, values);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool OICEquals(this string rpString, string rpValue) => rpString.Equals(rpValue, StringComparison.OrdinalIgnoreCase);
+        public static bool OICEquals(this string str, string value) => str.Equals(value, StringComparison.OrdinalIgnoreCase);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int OICIndexOf(this string rpString, string rpValue) => rpString.IndexOf(rpValue, StringComparison.OrdinalIgnoreCase);
+        public static int OICIndexOf(this string str, string value) => str.IndexOf(value, StringComparison.OrdinalIgnoreCase);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int OICLastIndexOf(this string rpString, string rpValue) => rpString.LastIndexOf(rpValue, StringComparison.OrdinalIgnoreCase);
+        public static int OICLastIndexOf(this string str, string value) => str.LastIndexOf(value, StringComparison.OrdinalIgnoreCase);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool OICContains(this string rpString, string rpValue) => rpString.OICIndexOf(rpValue) >= 0;
+        public static bool OICContains(this string str, string value) => str.OICIndexOf(value) >= 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool OICStartsWith(this string rpString, string rpValue) => rpString.StartsWith(rpValue, StringComparison.OrdinalIgnoreCase);
+        public static bool OICStartsWith(this string str, string value) => str.StartsWith(value, StringComparison.OrdinalIgnoreCase);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool OICEndsWith(this string rpString, string rpValue) => rpString.EndsWith(rpValue, StringComparison.OrdinalIgnoreCase);
+        public static bool OICEndsWith(this string str, string value) => str.EndsWith(value, StringComparison.OrdinalIgnoreCase);
     }
 }

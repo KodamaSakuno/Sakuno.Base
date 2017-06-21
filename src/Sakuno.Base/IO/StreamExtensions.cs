@@ -10,12 +10,12 @@ namespace Sakuno.IO
 
             do
             {
-                var rLength = stream.Read(buffer, offset, remaining);
-                if (rLength == 0)
+                var length = stream.Read(buffer, offset, remaining);
+                if (length == 0)
                     break;
 
-                remaining -= rLength;
-                offset += rLength;
+                remaining -= length;
+                offset += length;
             } while (remaining > 0);
 
             return count - remaining;

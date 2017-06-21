@@ -22,19 +22,19 @@ namespace Sakuno.Reflection
 
         static Func<object[], object> CreateInvokerCore(ConstructorInfo constructor)
         {
-            var rParametersParameter = Expression.Parameter(typeof(object[]), "rpParameters");
+            var argsParameter = Expression.Parameter(typeof(object[]), "args");
 
-            var rParameterExpressions = constructor.GetParameters().Select((r, i) =>
+            var arguments = constructor.GetParameters().Select((r, i) =>
             {
-                var rParameterValue = Expression.ArrayIndex(rParametersParameter, Expression.Constant(i));
+                var parameterValue = Expression.ArrayIndex(argsParameter, Expression.Constant(i));
 
-                return Expression.Convert(rParameterValue, r.ParameterType);
+                return Expression.Convert(parameterValue, r.ParameterType);
             }).ToArray();
 
-            var rResult = Expression.New(constructor, rParameterExpressions);
-            var rCastResult = Expression.Convert(rResult, typeof(object));
+            var result = Expression.New(constructor, arguments);
+            var castResult = Expression.Convert(result, typeof(object));
 
-            return Expression.Lambda<Func<object[], object>>(rCastResult, rParametersParameter).Compile();
+            return Expression.Lambda<Func<object[], object>>(castResult, argsParameter).Compile();
         }
     }
 }

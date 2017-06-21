@@ -112,8 +112,8 @@ namespace Sakuno.Collections
         {
             var dictionary = new Dictionary<TKey, TValue>(13, _comparer);
 
-            foreach (var rItem in _listDictionary)
-                dictionary.Add(rItem.Key, rItem.Value);
+            foreach (var item in _listDictionary)
+                dictionary.Add(item.Key, item.Value);
 
             _dictionary = dictionary;
             _listDictionary = null;

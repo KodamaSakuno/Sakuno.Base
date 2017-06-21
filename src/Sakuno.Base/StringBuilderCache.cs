@@ -14,14 +14,14 @@ namespace Sakuno
         {
             if (capacity <= MaxLength)
             {
-                var rCachedInstance = _cachedInstance;
+                var cachedInstance = _cachedInstance;
 
-                if (rCachedInstance != null && capacity <= rCachedInstance.Capacity)
+                if (cachedInstance != null && capacity <= cachedInstance.Capacity)
                 {
                     _cachedInstance = null;
-                    rCachedInstance.Clear();
+                    cachedInstance.Clear();
 
-                    return rCachedInstance;
+                    return cachedInstance;
                 }
             }
 

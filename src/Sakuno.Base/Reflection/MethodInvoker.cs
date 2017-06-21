@@ -24,7 +24,7 @@ namespace Sakuno.Reflection
         static Func<object, object[], object> CreateInvokerCore(MethodInfo method)
         {
             var instanceParameter = Expression.Parameter(typeof(object), "instance");
-            var argsParameter = Expression.Parameter(typeof(object[]), "parameters");
+            var argsParameter = Expression.Parameter(typeof(object[]), "args");
 
             var arguments = method.GetParameters().Select((r, i) =>
             {
