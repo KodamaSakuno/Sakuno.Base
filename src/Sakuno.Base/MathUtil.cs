@@ -74,6 +74,44 @@ namespace Sakuno
             Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, Math.Min(val5, Math.Min(val6, Math.Min(val7, val8)))))));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Min(byte val1, byte val2, byte val3) =>
+            Math.Min(val1, Math.Min(val2, val3));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Min(byte val1, byte val2, byte val3, byte val4) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, val4)));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Min(byte val1, byte val2, byte val3, byte val4, byte val5) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, val5))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Min(byte val1, byte val2, byte val3, byte val4, byte val5, byte val6) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, Math.Min(val5, val6)))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Min(byte val1, byte val2, byte val3, byte val4, byte val5, byte val6, byte val7) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, Math.Min(val5, Math.Min(val6, val7))))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Min(byte val1, byte val2, byte val3, byte val4, byte val5, byte val6, byte val7, byte val8) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, Math.Min(val5, Math.Min(val6, Math.Min(val7, val8)))))));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Min(short val1, short val2, short val3) =>
+            Math.Min(val1, Math.Min(val2, val3));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Min(short val1, short val2, short val3, short val4) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, val4)));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Min(short val1, short val2, short val3, short val4, short val5) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, val5))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Min(short val1, short val2, short val3, short val4, short val5, short val6) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, Math.Min(val5, val6)))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Min(short val1, short val2, short val3, short val4, short val5, short val6, short val7) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, Math.Min(val5, Math.Min(val6, val7))))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Min(short val1, short val2, short val3, short val4, short val5, short val6, short val7, short val8) =>
+            Math.Min(val1, Math.Min(val2, Math.Min(val3, Math.Min(val4, Math.Min(val5, Math.Min(val6, Math.Min(val7, val8)))))));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Max(int val1, int val2, int val3) =>
             Math.Max(val1, Math.Max(val2, val3));
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -128,6 +166,44 @@ namespace Sakuno
             Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, Math.Max(val5, Math.Max(val6, val7))))));
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double val1, double val2, double val3, double val4, double val5, double val6, double val7, double val8) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, Math.Max(val5, Math.Max(val6, Math.Max(val7, val8)))))));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Max(byte val1, byte val2, byte val3) =>
+            Math.Max(val1, Math.Max(val2, val3));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Max(byte val1, byte val2, byte val3, byte val4) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, val4)));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Max(byte val1, byte val2, byte val3, byte val4, byte val5) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, val5))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Max(byte val1, byte val2, byte val3, byte val4, byte val5, byte val6) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, Math.Max(val5, val6)))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Max(byte val1, byte val2, byte val3, byte val4, byte val5, byte val6, byte val7) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, Math.Max(val5, Math.Max(val6, val7))))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Max(byte val1, byte val2, byte val3, byte val4, byte val5, byte val6, byte val7, byte val8) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, Math.Max(val5, Math.Max(val6, Math.Max(val7, val8)))))));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Max(short val1, short val2, short val3) =>
+            Math.Max(val1, Math.Max(val2, val3));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Max(short val1, short val2, short val3, short val4) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, val4)));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Max(short val1, short val2, short val3, short val4, short val5) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, val5))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Max(short val1, short val2, short val3, short val4, short val5, short val6) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, Math.Max(val5, val6)))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Max(short val1, short val2, short val3, short val4, short val5, short val6, short val7) =>
+            Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, Math.Max(val5, Math.Max(val6, val7))))));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Max(short val1, short val2, short val3, short val4, short val5, short val6, short val7, short val8) =>
             Math.Max(val1, Math.Max(val2, Math.Max(val3, Math.Max(val4, Math.Max(val5, Math.Max(val6, Math.Max(val7, val8)))))));
     }
 }
