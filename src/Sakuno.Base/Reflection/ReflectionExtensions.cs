@@ -34,7 +34,7 @@ namespace Sakuno.Reflection
                 if (!r.IsDefined(typeof(T)))
                     return Array.Empty<T>();
 
-                return CustomAttributeData.GetCustomAttributes(r).Where(data => data.Constructor.DeclaringType == typeof(T)).Select(data =>
+                return r.GetCustomAttributesData().Where(data => data.Constructor.DeclaringType == typeof(T)).Select(data =>
                 {
                     var result = data.Constructor.FastInvoke(data.ConstructorArguments.Select(argument => argument.Value).ToArray());
 
