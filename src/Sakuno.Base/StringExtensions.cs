@@ -13,6 +13,9 @@ namespace Sakuno
         public static string Join(this IEnumerable<string> values, string separator) => string.Join(separator, values);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int OICCompare(this string str, string value) => string.Compare(str, value, StringComparison.OrdinalIgnoreCase);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool OICEquals(this string str, string value) => str.Equals(value, StringComparison.OrdinalIgnoreCase);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
