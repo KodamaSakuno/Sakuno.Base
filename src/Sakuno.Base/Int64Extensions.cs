@@ -3,16 +3,10 @@ using System.Runtime.CompilerServices;
 
 namespace Sakuno
 {
-    public static class DoubleExtensions
+    public static class Int64Extensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInfinity(this double value) => double.IsInfinity(value);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNaN(this double value) => double.IsNaN(value);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Clamp(double value, double min, double max)
+        public static long Clamp(long value, long min, long max)
         {
             if (min > max)
                 throw new ArgumentOutOfRangeException("Min must be less than or equal to max.");

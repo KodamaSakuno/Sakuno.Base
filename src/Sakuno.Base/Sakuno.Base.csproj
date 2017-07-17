@@ -63,7 +63,9 @@
     <Compile Include="DoubleUtil.cs" />
     <Compile Include="EnumUtil.cs" />
     <Compile Include="IdentityFunction`T.cs" />
+    <Compile Include="Int32Extensions.cs" />
     <Compile Include="Int32Util.cs" />
+    <Compile Include="Int64Extensions.cs" />
     <Compile Include="IO\StreamExtensions.cs" />
     <Compile Include="MathUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
