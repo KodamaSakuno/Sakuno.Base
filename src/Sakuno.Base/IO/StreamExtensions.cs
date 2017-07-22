@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 
 namespace Sakuno.IO
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class StreamExtensions
     {
         public static int FillBuffer(this Stream stream, byte[] buffer, int offset, int count)

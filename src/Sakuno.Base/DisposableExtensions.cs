@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Sakuno
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class DisposableExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

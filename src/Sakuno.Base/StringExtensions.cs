@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Sakuno
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class StringExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

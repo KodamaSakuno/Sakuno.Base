@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
 namespace Sakuno.Reflection
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class ReflectionExtensions
     {
         public static object FastInvoke(this ConstructorInfo construction, params object[] args) =>

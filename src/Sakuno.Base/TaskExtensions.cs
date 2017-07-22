@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Sakuno
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TaskExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
