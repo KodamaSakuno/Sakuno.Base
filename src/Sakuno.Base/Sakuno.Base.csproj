@@ -63,6 +63,7 @@
     <Compile Include="DoubleExtensions.cs" />
     <Compile Include="DoubleUtil.cs" />
     <Compile Include="EnumUtil.cs" />
+    <Compile Include="EventArgsCache.cs" />
     <Compile Include="IdentityFunction`T.cs" />
     <Compile Include="Int32Extensions.cs" />
     <Compile Include="Int32Util.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="Net\SocketAsyncOperationContext.cs" />
     <Compile Include="Net\SocketExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyChangedEventArgsCache.cs" />
     <Compile Include="Reflection\ConstructorInvoker.cs" />
     <Compile Include="Reflection\EventAccessor.cs" />
     <Compile Include="Reflection\FieldAccessor.cs" />

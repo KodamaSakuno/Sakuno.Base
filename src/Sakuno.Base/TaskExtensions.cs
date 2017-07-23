@@ -12,6 +12,11 @@ namespace Sakuno
         public static void Forget(this Task task) { }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void WaitAndUnwarp(this Task task) => task.GetAwaiter().GetResult();
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T WaitAndUnwarp<T>(this Task<T> task) => task.GetAwaiter().GetResult();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void WaitAll(this Task[] tasks) => Task.WaitAll(tasks);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void WaitAny(this Task[] tasks) => Task.WaitAny(tasks);
