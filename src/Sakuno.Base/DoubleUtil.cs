@@ -11,6 +11,20 @@ namespace Sakuno
         public static readonly object One = 1.0;
         public static readonly object NaN = double.NaN;
 
+        public static object GetBoxed(double value)
+        {
+            if (IsCloseToZero(value))
+                return Zero;
+
+            if (IsCloseToOne(value))
+                return One;
+
+            if (value.IsNaN())
+                return NaN;
+
+            return value;
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsCloseToZero(double value) => Math.Abs(value) < _epsilon;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
