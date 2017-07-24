@@ -5,8 +5,7 @@ namespace Sakuno
 {
     public static class EnumUtil
     {
-        public static object GetBoxed<[EnumConstraint] T>(T value) =>
-            BoxedEnum<T>.Get(value);
+        public static object GetBoxed<[EnumConstraint] T>(T value) => BoxedEnum<T>.Get(value);
 
         static class BoxedEnum<[EnumConstraint] T>
         {

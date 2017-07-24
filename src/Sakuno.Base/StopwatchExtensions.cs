@@ -7,7 +7,6 @@ namespace Sakuno
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class StopwatchExtensions
     {
-        public static TimeSpan GetTimeSpan(this Stopwatch stopwatch) =>
-            TimeSpan.FromTicks(stopwatch.ElapsedTicks);
+        public static TimeSpan GetTimeSpan(this Stopwatch stopwatch) => TimeSpan.FromTicks(stopwatch.ElapsedTicks);
     }
 }

@@ -31,5 +31,4 @@ namespace Sakuno
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<Task<T>> WhenAny<T>(this IEnumerable<Task<T>> tasks) => Task.WhenAny(tasks);
     }
-
 }
