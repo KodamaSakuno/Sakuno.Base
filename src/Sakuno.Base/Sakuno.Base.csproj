@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayExtensions.cs" />
     <Compile Include="ArrayUtil.cs" />
     <Compile Include="BooleanUtil.cs" />
     <Compile Include="ByteUtil.cs" />
