@@ -55,6 +55,7 @@
     <Compile Include="Collections\HybridDictionary`TKey`TValue.cs" />
     <Compile Include="Collections\ListDictionary`TKey`TValue.cs" />
     <Compile Include="Collections\QueueSide.cs" />
+    <Compile Include="Collections\SortedList`T.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeUtil.cs" />
     <Compile Include="Disposable.cs" />
