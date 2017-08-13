@@ -50,6 +50,10 @@
     <Compile Include="ArrayUtil.cs" />
     <Compile Include="BooleanUtil.cs" />
     <Compile Include="ByteUtil.cs" />
+    <Compile Include="Collections\ConcurrencyLevel.cs" />
+    <Compile Include="Collections\ConcurrencyLevelExtensions.cs" />
+    <Compile Include="Collections\ConcurrentDictionaryFactory.cs" />
+    <Compile Include="Collections\ConcurrentSet`T.cs" />
     <Compile Include="Collections\Deque`T.cs" />
     <Compile Include="Collections\DictionaryExtensions.cs" />
     <Compile Include="Collections\HybridDictionary`TKey`TValue.cs" />
