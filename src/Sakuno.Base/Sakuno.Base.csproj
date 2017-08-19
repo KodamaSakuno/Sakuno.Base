@@ -88,6 +88,7 @@
     <Compile Include="Reflection\PropertyAccessor.cs" />
     <Compile Include="Reflection\ReflectionCache.cs" />
     <Compile Include="Reflection\ReflectionExtensions.cs" />
+    <Compile Include="ServiceProviderExtensions.cs" />
     <Compile Include="StopwatchExtensions.cs" />
     <Compile Include="StringBuilderCache.cs" />
     <Compile Include="StringExtensions.cs" />
