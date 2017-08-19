@@ -54,10 +54,13 @@
     <Compile Include="Collections\ConcurrencyLevelExtensions.cs" />
     <Compile Include="Collections\ConcurrentDictionaryFactory.cs" />
     <Compile Include="Collections\ConcurrentSet`T.cs" />
+    <Compile Include="Collections\DelegatedProjector.cs" />
     <Compile Include="Collections\Deque`T.cs" />
     <Compile Include="Collections\DictionaryExtensions.cs" />
     <Compile Include="Collections\HybridDictionary`TKey`TValue.cs" />
+    <Compile Include="Collections\IProjector`TSource`TDestination.cs" />
     <Compile Include="Collections\ListDictionary`TKey`TValue.cs" />
+    <Compile Include="Collections\ProjectionCollection`TSource`TDestination.cs" />
     <Compile Include="Collections\QueueSide.cs" />
     <Compile Include="Collections\SortedList`T.cs" />
     <Compile Include="DateTimeExtensions.cs" />
