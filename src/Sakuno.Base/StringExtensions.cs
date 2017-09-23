@@ -12,6 +12,9 @@ namespace Sakuno
         public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsInterned(this string value) => string.IsInterned(value) == value;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Join(this IEnumerable<string> values, string separator) => string.Join(separator, values);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
