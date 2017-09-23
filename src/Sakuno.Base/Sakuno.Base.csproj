@@ -52,6 +52,7 @@
     <Compile Include="ByteUtil.cs" />
     <Compile Include="Collections\ConcurrencyLevel.cs" />
     <Compile Include="Collections\ConcurrencyLevelExtensions.cs" />
+    <Compile Include="Collections\ConcurrentBitArray.cs" />
     <Compile Include="Collections\ConcurrentDictionaryFactory.cs" />
     <Compile Include="Collections\ConcurrentSet`T.cs" />
     <Compile Include="Collections\DelegatedProjector.cs" />
