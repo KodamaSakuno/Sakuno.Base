@@ -33,6 +33,7 @@ namespace Weavers
 
             ProcessZeroMemoryMethod(type.GetMethod("ZeroMemory"));
             ProcessCopyMemoryMethod(type.GetMethod("CopyMemory"));
+            ProcessAsMethod(type.GetMethod("As"));
         }
         void ProcessZeroMemoryMethod(MethodDefinition method)
         {
@@ -58,6 +59,16 @@ namespace Weavers
             processor.Emit(OpCodes.Ldarg_1);
             processor.Emit(OpCodes.Ldarg_2);
             processor.Emit(OpCodes.Cpblk);
+            processor.Emit(OpCodes.Ret);
+        }
+        void ProcessAsMethod(MethodDefinition method)
+        {
+            var body = method.Body;
+            var processor = body.GetILProcessor();
+
+            body.Instructions.Clear();
+
+            processor.Emit(OpCodes.Ldarg_0);
             processor.Emit(OpCodes.Ret);
         }
 
