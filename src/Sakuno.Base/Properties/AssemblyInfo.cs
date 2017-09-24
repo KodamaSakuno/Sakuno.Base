@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Sakuno.Base")]
 [assembly: AssemblyDescription("The common part of Sakuno's libraries")]
 [assembly: AssemblyProduct("Sakuno.Base")]
-[assembly: AssemblyCompany("sakuno.moe")]
+[assembly: AssemblyCompany("Kodama Sakuno")]
 [assembly: AssemblyCopyright("Copyright © 2017 神樹桜乃")]
 
 [assembly: ComVisible(false)]
