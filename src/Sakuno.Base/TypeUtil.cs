@@ -5,6 +5,6 @@ namespace Sakuno
     public static class TypeUtil
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int SizeOf<T>() => Unsafe.SizeOf<T>();
+        public static int SizeOf<T>() => 0;
     }
 }

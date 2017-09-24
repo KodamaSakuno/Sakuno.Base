@@ -12,4 +12,3 @@ The common part of my libraries.
 ## Third-party Libraries
 
  * [Fody](https://github.com/Fody/Fody)
- * [System.Runtime.CompilerServices.Unsafe](https://github.com/dotnet/corefx)

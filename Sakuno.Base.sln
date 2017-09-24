@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.Base", "src\Sakuno.Base\Sakuno.Base.csproj", "{B28D5D45-4F14-4336-B71C-0031DAECC883}"
+	ProjectSection(ProjectDependencies) = postProject
+		{520818D2-DC16-4883-98EA-7C046B730AF3} = {520818D2-DC16-4883-98EA-7C046B730AF3}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0DF0E367-DB03-4AE6-819C-55B2F79DFC05}"
 EndProject
@@ -13,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weavers", "Weavers\Weavers.csproj", "{520818D2-DC16-4883-98EA-7C046B730AF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,11 +33,18 @@ Global
 		{B72C9A4B-DD58-488C-8459-E753E1B3CF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B72C9A4B-DD58-488C-8459-E753E1B3CF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B72C9A4B-DD58-488C-8459-E753E1B3CF85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{520818D2-DC16-4883-98EA-7C046B730AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{520818D2-DC16-4883-98EA-7C046B730AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{520818D2-DC16-4883-98EA-7C046B730AF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{520818D2-DC16-4883-98EA-7C046B730AF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B72C9A4B-DD58-488C-8459-E753E1B3CF85} = {0DF0E367-DB03-4AE6-819C-55B2F79DFC05}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF7AFE70-390D-4333-BC2C-F88A412B3761}
 	EndGlobalSection
 EndGlobal
