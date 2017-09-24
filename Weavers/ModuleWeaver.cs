@@ -11,6 +11,7 @@ namespace Weavers
         {
             ProcessSizeOfMethod();
             ProcessUnsafeOperations();
+            ProcessEnumExtensions();
         }
 
         void ProcessSizeOfMethod()
@@ -57,6 +58,28 @@ namespace Weavers
             processor.Emit(OpCodes.Ldarg_1);
             processor.Emit(OpCodes.Ldarg_2);
             processor.Emit(OpCodes.Cpblk);
+            processor.Emit(OpCodes.Ret);
+        }
+
+        void ProcessEnumExtensions()
+        {
+            var type = ModuleDefinition.GetType("Sakuno.EnumExtensions");
+
+            ProcessEnumHasFlagMethod(type.GetMethod("Has"));
+        }
+
+        void ProcessEnumHasFlagMethod(MethodDefinition method)
+        {
+            var body = method.Body;
+            var processor = body.GetILProcessor();
+
+            body.Instructions.Clear();
+
+            processor.Emit(OpCodes.Ldarg_0);
+            processor.Emit(OpCodes.Ldarg_1);
+            processor.Emit(OpCodes.And);
+            processor.Emit(OpCodes.Ldc_I4_0);
+            processor.Emit(OpCodes.Cgt_Un);
             processor.Emit(OpCodes.Ret);
         }
     }

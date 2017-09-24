@@ -69,6 +69,7 @@
     <Compile Include="DisposableUtil.cs" />
     <Compile Include="DoubleExtensions.cs" />
     <Compile Include="DoubleUtil.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="EnumUtil.cs" />
     <Compile Include="EventArgsCache.cs" />
     <Compile Include="IdentityFunction`T.cs" />
