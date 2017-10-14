@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CultureInfoTest.cs" />
     <Compile Include="DateTimeTests.cs" />
     <Compile Include="EqualityTests.cs" />
     <Compile Include="NumericalCalculationTests.cs" />

@@ -61,6 +61,7 @@
     <Compile Include="Collections\ProjectionCollection`TSource`TDestination.cs" />
     <Compile Include="Collections\QueueSide.cs" />
     <Compile Include="Collections\SortedList`T.cs" />
+    <Compile Include="CultureInfoExtensions.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeUtil.cs" />
     <Compile Include="Disposable.cs" />
