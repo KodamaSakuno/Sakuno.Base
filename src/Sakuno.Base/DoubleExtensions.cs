@@ -27,5 +27,10 @@ namespace Sakuno
 
             return value;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsFinite(this double value) => value >= double.MinValue && value <= double.MaxValue;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsInteger(this double value) => value.IsFinite() && Math.Floor(value) == Math.Ceiling(value);
     }
 }
