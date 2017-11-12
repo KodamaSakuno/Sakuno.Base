@@ -20,7 +20,8 @@ namespace Sakuno.Collections
         bool ICollection<T>.IsReadOnly => false;
 
         public SortedList() : this(4, null) { }
-        public SortedList(int capacity) :  this(capacity, null) { }
+        public SortedList(int capacity) : this(capacity, null) { }
+        public SortedList(IComparer<T> comparer) : this(4, comparer) { }
         public SortedList(int capacity, IComparer<T> comparer)
         {
             _list = new List<T>(capacity);
