@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 
 namespace Sakuno
 {
@@ -16,18 +15,10 @@ namespace Sakuno
         public const int DaysPer100Years = DaysPer4Years * 25 - 1;
         public const int DaysPer400Years = DaysPer100Years * 4 + 1;
 
-        internal static readonly int[] DaysToMonth365, DaysToMonth366;
+        internal static readonly int[] DaysToMonth365 = new[] { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365 };
+        internal static readonly int[] DaysToMonth366 = new[] { 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366 };
 
         public static DateTimeOffset UnixEpoch { get; } = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
-
-        static DateTimeUtil()
-        {
-            var type = typeof(DateTime);
-            var flags = BindingFlags.NonPublic | BindingFlags.Static;
-
-            DaysToMonth365 = (int[])type.GetField(nameof(DaysToMonth365), flags).GetValue(null);
-            DaysToMonth366 = (int[])type.GetField(nameof(DaysToMonth366), flags).GetValue(null);
-        }
 
         internal static void ExtractDate(long ticks, out int year, out int month, out int day, out bool isLeapYear)
         {
