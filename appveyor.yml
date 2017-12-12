@@ -14,12 +14,12 @@ before_build:
 build:
   project: Sakuno.Base.sln
   verbosity: minimal
-after_build:
-- cmd: nuget pack src\Sakuno.Base\Sakuno.Base.csproj -Properties "Configuration=Release;Platform=AnyCPU"
 test:
   assemblies:
     only:
-    - tests\Sakuno.Base.Tests\bin\Release\Sakuno.Base.Tests.dll
+    - artifacts\tests\%configuration%\netcoreapp2.0\Sakuno.Base.Tests.dll
+after_test:
+- ps: Move-Item artifacts\$($env:configuration)\*.nupkg .
 artifacts:
 - path: '*.nupkg'
   name: NuGet
