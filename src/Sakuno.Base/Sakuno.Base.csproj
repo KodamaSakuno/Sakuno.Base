@@ -22,10 +22,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExtraConstraints.Fody" Version="1.12.0">
+    <PackageReference Include="ExtraConstraints.Fody" Version="1.12.2">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Fody" Version="2.2.1">
+    <PackageReference Include="Fody" Version="2.3.22">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
