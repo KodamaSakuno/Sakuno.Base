@@ -29,5 +29,8 @@ namespace Sakuno
         public static bool IsCloseToZero(double value) => Math.Abs(value) < _epsilon;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsCloseToOne(double value) => Math.Abs(value - 1.0) < _epsilon;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Lerp(double from, double to, double frac) => from + (to - from) * frac;
     }
 }
