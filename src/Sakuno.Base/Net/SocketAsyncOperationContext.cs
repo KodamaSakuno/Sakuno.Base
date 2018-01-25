@@ -29,6 +29,12 @@ namespace Sakuno.Net
 
         public int BytesTransferred => _argument.BytesTransferred;
 
+        public bool DisconnectReuseSocket
+        {
+            get => _argument.DisconnectReuseSocket;
+            set => _argument.DisconnectReuseSocket = value;
+        }
+
         public SocketError LastError => _argument.SocketError;
 
         public SocketAsyncOperationContext()
