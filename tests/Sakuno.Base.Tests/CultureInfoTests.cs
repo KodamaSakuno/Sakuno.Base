@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Sakuno.Base.Tests
 {
-    public static class CultureInfoTest
+    public static class CultureInfoTests
     {
         [Fact]
         public static void InvariantCulture()
