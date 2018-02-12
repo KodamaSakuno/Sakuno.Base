@@ -5,6 +5,7 @@
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.1</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks> 
     <OutputPath>$(SolutionDir)artifacts\tests\$(Configuration)\</OutputPath>
   </PropertyGroup>
 

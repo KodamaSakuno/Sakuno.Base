@@ -55,8 +55,8 @@ namespace Weavers
 
             body.Instructions.Clear();
 
-            processor.Emit(OpCodes.Ldarg_0);
             processor.Emit(OpCodes.Ldarg_1);
+            processor.Emit(OpCodes.Ldarg_0);
             processor.Emit(OpCodes.Ldarg_2);
             processor.Emit(OpCodes.Cpblk);
             processor.Emit(OpCodes.Ret);
