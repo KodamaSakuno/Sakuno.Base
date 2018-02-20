@@ -9,7 +9,7 @@ namespace Sakuno.Collections
 {
     public sealed class ProjectionCollection<TSource, TDestination> : DisposableObject, IList<TDestination>, IReadOnlyList<TDestination>, INotifyPropertyChanged, INotifyCollectionChanged
     {
-        IList<TSource> _source;
+        IReadOnlyList<TSource> _source;
         IProjector<TSource, TDestination> _projector;
 
         List<TSource> _sourceSnapshot;
@@ -30,17 +30,17 @@ namespace Sakuno.Collections
         public event PropertyChangedEventHandler PropertyChanged;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public ProjectionCollection(IList<TSource> source, Func<TSource, TDestination> projector)
+        public ProjectionCollection(IReadOnlyList<TSource> source, Func<TSource, TDestination> projector)
             : this(source, projector != null ? new DelegatedProjector<TSource, TDestination>(projector) : null) { }
-        public ProjectionCollection(IList<TSource> source, IProjector<TSource, TDestination> projector)
+        public ProjectionCollection(IReadOnlyList<TSource> source, IProjector<TSource, TDestination> projector)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
             _projector = projector ?? throw new ArgumentNullException(nameof(projector));
 
-            _sourceSnapshot = new List<TSource>();
+            _sourceSnapshot = new List<TSource>(_source.Count + 4);
             _sourceSnapshot.AddRange(_source);
 
-            _destination = new List<TDestination>();
+            _destination = new List<TDestination>(_source.Count + 4);
             ProjectFromSource();
 
             if (_source is INotifyCollectionChanged sourceCollectionChanged)
@@ -60,8 +60,8 @@ namespace Sakuno.Collections
                             var newSourceItem = (TSource)e.NewItems[i];
                             var newItem = _projector.Project(newSourceItem);
 
-                            _sourceSnapshot.Add(newSourceItem);
-                            _destination.Add(newItem);
+                            _sourceSnapshot.Insert(e.NewStartingIndex + i, newSourceItem);
+                            _destination.Insert(e.NewStartingIndex + i, newItem);
 
                             newItems[i] = newItem;
                         }
@@ -80,6 +80,8 @@ namespace Sakuno.Collections
                             var oldItemIndex = _sourceSnapshot.IndexOf(oldSourceItem);
 
                             oldItems[i] = _destination[oldItemIndex];
+
+                            _sourceSnapshot.RemoveAt(oldItemIndex);
                             _destination.RemoveAt(oldItemIndex);
                         }
 
@@ -97,7 +99,7 @@ namespace Sakuno.Collections
                         _sourceSnapshot[e.OldStartingIndex] = newSourceItem;
                         _destination[e.OldStartingIndex] = newItem;
 
-                        NotifyCollectionItemChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItem, newItem, e.NewStartingIndex));
+                        NotifyCollectionItemChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, newItem, oldItem, e.NewStartingIndex));
                     }
                     break;
 
@@ -118,8 +120,11 @@ namespace Sakuno.Collections
                     _destination.Clear();
                     _sourceSnapshot.Clear();
 
-                    _sourceSnapshot.AddRange(_source);
-                    ProjectFromSource();
+                    if (_source.Count > 0)
+                    {
+                        _sourceSnapshot.AddRange(_source);
+                        ProjectFromSource();
+                    }
 
                     NotifyCollectionChanged(EventArgsCache.CollectionChanged.Reset);
                     break;
@@ -129,7 +134,7 @@ namespace Sakuno.Collections
         void ProjectFromSource()
         {
             for (var i = 0; i < _source.Count; i++)
-                _destination[i] = _projector.Project(_source[i]);
+                _destination.Insert(i, _projector.Project(_source[i]));
         }
 
         public int IndexOf(TDestination item) => _destination.IndexOf(item);
