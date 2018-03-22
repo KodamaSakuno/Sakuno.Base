@@ -86,10 +86,17 @@ namespace Weavers
 
             body.Instructions.Clear();
 
+            var genericParameterType = method.GenericParameters[0];
+            var variable = new VariableDefinition(genericParameterType);
+
+            body.Variables.Add(variable);
+
             processor.Emit(OpCodes.Ldarg_0);
             processor.Emit(OpCodes.Ldarg_1);
             processor.Emit(OpCodes.And);
-            processor.Emit(OpCodes.Ldc_I4_0);
+            processor.Emit(OpCodes.Ldloca_S, variable);
+            processor.Emit(OpCodes.Initobj, genericParameterType);
+            processor.Emit(OpCodes.Ldloc_0);
             processor.Emit(OpCodes.Cgt_Un);
             processor.Emit(OpCodes.Ret);
         }
