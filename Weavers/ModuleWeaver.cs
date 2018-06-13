@@ -1,13 +1,18 @@
-﻿using Mono.Cecil;
+﻿using System.Collections.Generic;
+using Fody;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 
 namespace Weavers
 {
-    public class ModuleWeaver
+    public class ModuleWeaver : BaseModuleWeaver
     {
-        public ModuleDefinition ModuleDefinition { get; set; }
+        public override IEnumerable<string> GetAssembliesForScanning()
+        {
+            yield break;
+        }
 
-        public void Execute()
+        public override void Execute()
         {
             ProcessSizeOfMethod();
             ProcessUnsafeOperations();
@@ -16,6 +21,8 @@ namespace Weavers
 
         void ProcessSizeOfMethod()
         {
+            LogInfo("Modifying Sakuno.TypeUtil.SizeOf<T>()...");
+
             var type = ModuleDefinition.GetType("Sakuno.TypeUtil");
             var method = type.GetMethod("SizeOf");
             var body = method.Body;
@@ -37,6 +44,8 @@ namespace Weavers
         }
         void ProcessZeroMemoryMethod(MethodDefinition method)
         {
+            LogInfo("Modifying Sakuno.UnsafeOperations.ZeroMemory()...");
+
             var body = method.Body;
             var processor = body.GetILProcessor();
 
@@ -50,6 +59,8 @@ namespace Weavers
         }
         void ProcessCopyMemoryMethod(MethodDefinition method)
         {
+            LogInfo("Modifying Sakuno.UnsafeOperations.CopyMemory()...");
+
             var body = method.Body;
             var processor = body.GetILProcessor();
 
@@ -63,6 +74,8 @@ namespace Weavers
         }
         void ProcessAsMethod(MethodDefinition method)
         {
+            LogInfo("Modifying Sakuno.UnsafeOperations.As<T1, T2>()...");
+
             var body = method.Body;
             var processor = body.GetILProcessor();
 
@@ -81,6 +94,8 @@ namespace Weavers
 
         void ProcessEnumHasFlagMethod(MethodDefinition method)
         {
+            LogInfo("Modifying Sakuno.EnumExtensions.Has<T>()...");
+
             var body = method.Body;
             var processor = body.GetILProcessor();
 
