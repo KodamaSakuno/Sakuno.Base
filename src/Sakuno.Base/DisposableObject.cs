@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Sakuno
 {
-    public class DisposableObject : IDisposable
+    public abstract class DisposableObject : IDisposable
     {
         volatile int _isDisposed;
         public bool IsDisposed => _isDisposed != 0;

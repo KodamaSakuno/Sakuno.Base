@@ -5,6 +5,8 @@ namespace Sakuno
 {
     public static class Disposable
     {
+        public static IDisposable Empty { get; } = new EmptyDisposable();
+
         public static IDisposable Create(Action action)
         {
             if (action == null)
@@ -12,8 +14,6 @@ namespace Sakuno
 
             return new AnonymousDisposable(action);
         }
-
-        public static IDisposable Empty() => EmptyDisposable.Instance;
 
         sealed class AnonymousDisposable : DisposableObject
         {
@@ -30,8 +30,6 @@ namespace Sakuno
 
         sealed class EmptyDisposable : IDisposable
         {
-            public static readonly EmptyDisposable Instance = new EmptyDisposable();
-
             public void Dispose() { }
         }
     }
