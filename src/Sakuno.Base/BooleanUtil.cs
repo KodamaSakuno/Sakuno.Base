@@ -4,10 +4,7 @@ namespace Sakuno
 {
     public static class BooleanUtil
     {
-        public static readonly object True = true;
-        public static readonly object False = false;
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static object GetBoxed(bool value) => value ? True : False;
+        public static object GetBoxed(bool value) => value ? BoxedConstants.Boolean.True : BoxedConstants.Boolean.False;
     }
 }
