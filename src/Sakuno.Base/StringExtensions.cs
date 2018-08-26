@@ -10,6 +10,8 @@ namespace Sakuno
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsNullOrWhiteSpace(this string value) => string.IsNullOrWhiteSpace(value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsInterned(this string value) => string.IsInterned(value) == value;
