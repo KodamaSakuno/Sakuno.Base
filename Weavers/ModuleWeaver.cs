@@ -14,75 +14,7 @@ namespace Weavers
 
         public override void Execute()
         {
-            ProcessSizeOfMethod();
-            ProcessUnsafeOperations();
             ProcessEnumExtensions();
-        }
-
-        void ProcessSizeOfMethod()
-        {
-            LogInfo("Modifying Sakuno.TypeUtil.SizeOf<T>()...");
-
-            var type = ModuleDefinition.GetType("Sakuno.TypeUtil");
-            var method = type.GetMethod("SizeOf");
-            var body = method.Body;
-            var processor = body.GetILProcessor();
-
-            body.Instructions.Clear();
-
-            processor.Emit(OpCodes.Sizeof, method.GenericParameters[0]);
-            processor.Emit(OpCodes.Ret);
-        }
-
-        void ProcessUnsafeOperations()
-        {
-            var type = ModuleDefinition.GetType("Sakuno.UnsafeOperations");
-
-            ProcessZeroMemoryMethod(type.GetMethod("ZeroMemory"));
-            ProcessCopyMemoryMethod(type.GetMethod("CopyMemory"));
-            ProcessAsMethod(type.GetMethod("As"));
-        }
-        void ProcessZeroMemoryMethod(MethodDefinition method)
-        {
-            LogInfo("Modifying Sakuno.UnsafeOperations.ZeroMemory()...");
-
-            var body = method.Body;
-            var processor = body.GetILProcessor();
-
-            body.Instructions.Clear();
-
-            processor.Emit(OpCodes.Ldarg_0);
-            processor.Emit(OpCodes.Ldc_I4_0);
-            processor.Emit(OpCodes.Ldarg_1);
-            processor.Emit(OpCodes.Initblk);
-            processor.Emit(OpCodes.Ret);
-        }
-        void ProcessCopyMemoryMethod(MethodDefinition method)
-        {
-            LogInfo("Modifying Sakuno.UnsafeOperations.CopyMemory()...");
-
-            var body = method.Body;
-            var processor = body.GetILProcessor();
-
-            body.Instructions.Clear();
-
-            processor.Emit(OpCodes.Ldarg_1);
-            processor.Emit(OpCodes.Ldarg_0);
-            processor.Emit(OpCodes.Ldarg_2);
-            processor.Emit(OpCodes.Cpblk);
-            processor.Emit(OpCodes.Ret);
-        }
-        void ProcessAsMethod(MethodDefinition method)
-        {
-            LogInfo("Modifying Sakuno.UnsafeOperations.As<T1, T2>()...");
-
-            var body = method.Body;
-            var processor = body.GetILProcessor();
-
-            body.Instructions.Clear();
-
-            processor.Emit(OpCodes.Ldarg_0);
-            processor.Emit(OpCodes.Ret);
         }
 
         void ProcessEnumExtensions()
