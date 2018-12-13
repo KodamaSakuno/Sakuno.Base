@@ -27,6 +27,18 @@ namespace Sakuno.Collections
             }
         }
 
+        public static IEnumerable<(TSource Item, int Index)> WithIndex<TSource>(this IEnumerable<TSource> source)
+        {
+            var index = -1;
+
+            foreach (var item in source)
+            {
+                index = checked(index + 1);
+
+                yield return (item, index);
+            }
+        }
+
         public static IEnumerable<T> OrderBySelf<T>(this IEnumerable<T> source) => source.OrderBy(IdentityFunction<T>.Instance);
         public static IEnumerable<T> OrderBySelf<T>(this IEnumerable<T> items, IComparer<T> comparer) => items.OrderBy(IdentityFunction<T>.Instance, comparer);
 
