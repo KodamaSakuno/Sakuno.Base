@@ -30,7 +30,7 @@ namespace Sakuno.Collections
         public static IEnumerable<T> OrderBySelf<T>(this IEnumerable<T> source) => source.OrderBy(IdentityFunction<T>.Instance);
         public static IEnumerable<T> OrderBySelf<T>(this IEnumerable<T> items, IComparer<T> comparer) => items.OrderBy(IdentityFunction<T>.Instance, comparer);
 
-        public static IEnumerable<(T, bool)> EnumerateItemAndIfIsLast<T>(this IEnumerable<T> items)
+        public static IEnumerable<(T Item, bool IsLast)> EnumerateItemAndIfIsLast<T>(this IEnumerable<T> items)
         {
             using (var enumerator = items.GetEnumerator())
             {
