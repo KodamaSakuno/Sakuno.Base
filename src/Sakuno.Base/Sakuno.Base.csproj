@@ -17,7 +17,7 @@
     <Company>Kodama Sakuno</Company>
     <Copyright>Copyright © 2017 Kodama Sakuno</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/KodamaSakuno/Sakuno.Base/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/KodamaSakuno/Sakuno.Base</PackageProjectUrl>
   </PropertyGroup>
 
