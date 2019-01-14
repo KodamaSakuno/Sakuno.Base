@@ -15,7 +15,7 @@
     <Description>The common part of Sakuno's libraries</Description>
     <Product>Sakuno.Base</Product>
     <Company>Kodama Sakuno</Company>
-    <Copyright>Copyright © 2017 Kodama Sakuno</Copyright>
+    <Copyright>Copyright © 2017-2019 Kodama Sakuno</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/KodamaSakuno/Sakuno.Base</PackageProjectUrl>
