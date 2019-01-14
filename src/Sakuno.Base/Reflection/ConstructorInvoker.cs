@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Sakuno.Reflection
 {
-    public class ConstructorInvoker
+    public sealed class ConstructorInvoker
     {
         public ConstructorInfo Constructor { get; }
 

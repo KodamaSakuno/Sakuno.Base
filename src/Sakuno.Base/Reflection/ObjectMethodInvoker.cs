@@ -2,7 +2,7 @@
 
 namespace Sakuno.Reflection
 {
-    public class ObjectMethodInvoker
+    public sealed class ObjectMethodInvoker
     {
         Type _instanceType;
         string _methodName;

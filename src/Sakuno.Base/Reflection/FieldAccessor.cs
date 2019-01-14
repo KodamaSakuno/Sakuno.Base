@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Sakuno.Reflection
 {
-    public class FieldAccessor
+    public sealed class FieldAccessor
     {
         public FieldInfo Field { get; }
 

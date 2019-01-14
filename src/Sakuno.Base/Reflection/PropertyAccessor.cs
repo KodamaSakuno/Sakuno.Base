@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Sakuno.Reflection
 {
-    public class PropertyAccessor
+    public sealed class PropertyAccessor
     {
         public PropertyInfo Property { get; }
 

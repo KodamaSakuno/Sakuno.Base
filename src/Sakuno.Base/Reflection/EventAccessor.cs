@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Sakuno.Reflection
 {
-    public class EventAccessor
+    public sealed class EventAccessor
     {
         public EventInfo Event { get; }
 
