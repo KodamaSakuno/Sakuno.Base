@@ -25,7 +25,7 @@ namespace Sakuno.Collections
                 var node = _head;
 
                 if (_comparer == null)
-                    while(node != null)
+                    while (node != null)
                     {
                         var nodeKey = node.Key;
                         if (nodeKey != null && nodeKey.Equals(key))
