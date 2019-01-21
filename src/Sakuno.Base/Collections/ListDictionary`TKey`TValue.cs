@@ -191,7 +191,7 @@ namespace Sakuno.Collections
 
             if (current == null)
             {
-                value = default(TValue);
+                value = default;
                 return false;
             }
 

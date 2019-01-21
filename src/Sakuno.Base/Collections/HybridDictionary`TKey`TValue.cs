@@ -185,7 +185,7 @@ namespace Sakuno.Collections
             {
                 _listDictionary = new ListDictionary<TKey, TValue>(_comparer);
 
-                value = default(TValue);
+                value = default;
                 return false;
             }
 

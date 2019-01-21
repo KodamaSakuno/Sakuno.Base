@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -103,7 +103,7 @@ namespace Sakuno.Collections
                 throw new InvalidOperationException();
 
             var result = _array[_head];
-            _array[_head] = default(T);
+            _array[_head] = default;
 
             _head = (_head + 1) % _array.Length;
             _count--;
@@ -119,7 +119,7 @@ namespace Sakuno.Collections
             _tail = (_tail + _array.Length - 1) % _array.Length;
 
             var result = _array[_tail];
-            _array[_tail] = default(T);
+            _array[_tail] = default;
 
             _count--;
             _version++;
@@ -312,7 +312,7 @@ namespace Sakuno.Collections
                 _version = _owner._version;
 
                 _index = -1;
-                _current = default(T);
+                _current = default;
             }
 
             public bool MoveNext()
@@ -340,7 +340,7 @@ namespace Sakuno.Collections
             public void Dispose()
             {
                 _index = -2;
-                _current = default(T);
+                _current = default;
             }
             void IEnumerator.Reset()
             {
@@ -348,7 +348,7 @@ namespace Sakuno.Collections
                     throw new InvalidOperationException();
 
                 _index = -1;
-                _current = default(T);
+                _current = default;
             }
         }
         public struct ReverseEnumerator : IEnumerator<T>
@@ -381,7 +381,7 @@ namespace Sakuno.Collections
                 _version = _owner._version;
 
                 _index = _owner._count;
-                _current = default(T);
+                _current = default;
             }
 
             public bool MoveNext()
@@ -409,7 +409,7 @@ namespace Sakuno.Collections
             public void Dispose()
             {
                 _index = -2;
-                _current = default(T);
+                _current = default;
             }
             void IEnumerator.Reset()
             {
@@ -417,7 +417,7 @@ namespace Sakuno.Collections
                     throw new InvalidOperationException();
 
                 _index = -1;
-                _current = default(T);
+                _current = default;
             }
         }
     }
