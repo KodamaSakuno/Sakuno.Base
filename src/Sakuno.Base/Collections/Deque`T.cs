@@ -372,8 +372,6 @@ namespace Sakuno.Collections
             }
             object IEnumerator.Current => Current;
 
-            public int Version { get => _version; set => _version = value; }
-
             public ReverseEnumerator(Deque<T> owner)
             {
                 _owner = owner;
