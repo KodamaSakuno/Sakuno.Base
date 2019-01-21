@@ -190,13 +190,11 @@ namespace Sakuno.Collections
             var index = _head;
             var count = _count;
 
-            var comparer = EqualityComparer<T>.Default;
-
             while (count-- > 0)
             {
                 if (item == null && _array[index] == null)
                     return true;
-                else if (_array[index] != null && comparer.Equals(_array[index], item))
+                else if (_array[index] != null && EqualityComparer<T>.Default.Equals(_array[index], item))
                     return true;
 
                 index = (index + 1) % _array.Length;
