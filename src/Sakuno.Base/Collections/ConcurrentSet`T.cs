@@ -19,8 +19,8 @@ namespace Sakuno.Collections
         {
             _dictionary = ConcurrentDictionaryFactory.Create<T, byte>(level);
         }
-        public ConcurrentSet(IEqualityComparer<T> comparer) : this(ConcurrencyLevel.Default, EqualityComparer<T>.Default) { }
-        public ConcurrentSet(ConcurrencyLevel level, IEqualityComparer<T> comparer)
+        public ConcurrentSet(IEqualityComparer<T> comparer) : this(comparer, ConcurrencyLevel.Default) { }
+        public ConcurrentSet(IEqualityComparer<T> comparer, ConcurrencyLevel level)
         {
             _dictionary = ConcurrentDictionaryFactory.Create<T, byte>(level, comparer);
         }
