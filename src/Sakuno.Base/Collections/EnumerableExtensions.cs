@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -64,6 +65,13 @@ namespace Sakuno.Collections
 
                 yield return (last, true);
             }
+        }
+
+        public static IEnumerable<(TSource, TResult)> SelectManyWithSelf<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TResult>> collectionSelector)
+        {
+            foreach (var element in source)
+                foreach (var item in collectionSelector(element))
+                    yield return (element, item);
         }
     }
 }
