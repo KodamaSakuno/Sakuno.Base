@@ -274,12 +274,11 @@ namespace Sakuno.Collections
                 return;
 
             var count = Math.Min(_array.Length - _head, totalCount);
-
             Array.Copy(_array, _head, array, index, count);
-            totalCount -= count;
 
-            if (count > 0)
-                Array.Copy(_array, 0, array, index + _array.Length - _head, count);
+            totalCount -= count;
+            if (totalCount > 0)
+                Array.Copy(_array, 0, array, index + _array.Length - _head, totalCount);
         }
 
         public struct Enumerator : IEnumerator<T>
