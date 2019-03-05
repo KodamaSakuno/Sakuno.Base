@@ -10,7 +10,7 @@ namespace Sakuno
         public static class PropertyChanged
         {
             static ConcurrentDictionary<string, PropertyChangedEventArgs> _cache =
-                new ConcurrentDictionary<string, PropertyChangedEventArgs>(StringComparer.OrdinalIgnoreCase);
+                new ConcurrentDictionary<string, PropertyChangedEventArgs>(StringComparer.Ordinal);
 
             public static readonly PropertyChangedEventArgs Count = Get("Count");
             public static readonly PropertyChangedEventArgs Indexer = Get("Item[]");
