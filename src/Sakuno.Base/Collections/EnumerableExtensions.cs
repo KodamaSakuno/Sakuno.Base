@@ -73,5 +73,75 @@ namespace Sakuno.Collections
                 foreach (var item in collectionSelector(element))
                     yield return (element, item);
         }
+
+        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
+            MaxBy(source, keySelector, Comparer<TKey>.Default);
+        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            if (keySelector == null)
+                throw new ArgumentNullException(nameof(keySelector));
+            if (comparer == null)
+                throw new ArgumentNullException(nameof(comparer));
+
+            using (var enumerator = source.GetEnumerator())
+            {
+                if (!enumerator.MoveNext())
+                    throw new InvalidOperationException("There's no any element in the collection.");
+
+                var result = enumerator.Current;
+                var resultKey = keySelector(result);
+
+                while (enumerator.MoveNext())
+                {
+                    var current = enumerator.Current;
+                    var currentKey = keySelector(current);
+
+                    if (comparer.Compare(currentKey, resultKey) <= 0)
+                        continue;
+
+                    result = current;
+                    resultKey = currentKey;
+                }
+
+                return result;
+            }
+        }
+
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
+            MinBy(source, keySelector, Comparer<TKey>.Default);
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            if (keySelector == null)
+                throw new ArgumentNullException(nameof(keySelector));
+            if (comparer == null)
+                throw new ArgumentNullException(nameof(comparer));
+
+            using (var enumerator = source.GetEnumerator())
+            {
+                if (!enumerator.MoveNext())
+                    throw new InvalidOperationException("There's no any element in the collection.");
+
+                var result = enumerator.Current;
+                var resultKey = keySelector(result);
+
+                while (enumerator.MoveNext())
+                {
+                    var current = enumerator.Current;
+                    var currentKey = keySelector(current);
+
+                    if (comparer.Compare(currentKey, resultKey) >= 0)
+                        continue;
+
+                    result = current;
+                    resultKey = currentKey;
+                }
+
+                return result;
+            }
+        }
     }
 }
