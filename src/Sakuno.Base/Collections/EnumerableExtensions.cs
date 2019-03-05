@@ -67,6 +67,18 @@ namespace Sakuno.Collections
             }
         }
 
+        public static IEnumerable<TResult> SelectNotNull<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> resultSelector) where TResult : class
+        {
+            foreach (var element in source)
+            {
+                var result = resultSelector(element);
+                if (result == null)
+                    continue;
+
+                yield return result;
+            }
+        }
+
         public static IEnumerable<(TSource, TResult)> SelectManyWithSelf<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TResult>> collectionSelector)
         {
             foreach (var element in source)
