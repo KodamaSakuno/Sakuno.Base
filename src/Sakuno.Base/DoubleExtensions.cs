@@ -14,7 +14,7 @@ namespace Sakuno
         public static bool IsNaN(this double value) => double.IsNaN(value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Clamp(double value, double min, double max)
+        public static double Clamp(this double value, double min, double max)
         {
             if (min > max)
                 throw new ArgumentOutOfRangeException("Min must be less than or equal to max.");
