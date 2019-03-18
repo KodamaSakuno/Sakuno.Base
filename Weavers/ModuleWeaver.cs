@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fody;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -14,7 +15,10 @@ namespace Weavers
 
         public override void Execute()
         {
-            ProcessEnumExtensions();
+            var targetFrameworkAttribute = ModuleDefinition.Assembly.CustomAttributes.Single(r => r.AttributeType.FullName == "System.Runtime.Versioning.TargetFrameworkAttribute");
+            var frameworkName = (string)targetFrameworkAttribute.ConstructorArguments[0].Value;
+            if (frameworkName.StartsWith(".NETFramework,Version=v4."))
+                ProcessEnumExtensions();
         }
 
         void ProcessEnumExtensions()
