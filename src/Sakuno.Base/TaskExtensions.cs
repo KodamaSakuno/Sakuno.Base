@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace Sakuno
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void WaitAll(this Task[] tasks) => Task.WaitAll(tasks);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void WaitAny(this Task[] tasks) => Task.WaitAny(tasks);
+        public static int WaitAny(this Task[] tasks) => Task.WaitAny(tasks);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task WhenAll(this IEnumerable<Task> tasks) => Task.WhenAll(tasks);
