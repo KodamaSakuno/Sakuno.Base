@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -7,9 +8,14 @@ namespace Sakuno
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class ArrayExtensions
     {
-        public static string ToHexString(this byte[] bytes)
+        public static unsafe string ToHexString(this byte[] bytes)
         {
-            var buffer = new char[bytes.Length * 2];
+            var bufferSize = bytes.Length * 2;
+#if NETSTANDARD2_1
+            Span<char> buffer = bufferSize <= 64 ? stackalloc char[bufferSize] : new char[bufferSize];
+#else
+            var buffer = new char[bufferSize];
+#endif
             var position = 0;
 
             foreach (var b in bytes)
