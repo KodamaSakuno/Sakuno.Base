@@ -25,6 +25,11 @@ namespace Sakuno
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool OICEquals(this string str, string value) => str.Equals(value, StringComparison.OrdinalIgnoreCase);
 
+#if NETSTANDARD2_1
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int OICIndexOf(this string str, char value) =>
+            str.IndexOf(value, StringComparison.OrdinalIgnoreCase);
+#endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int OICIndexOf(this string str, string value) =>
             str.IndexOf(value, StringComparison.OrdinalIgnoreCase);
@@ -45,6 +50,10 @@ namespace Sakuno
         public static int OICLastIndexOf(this string str, string value, int startIndex, int count) =>
             str.LastIndexOf(value, startIndex, count, StringComparison.OrdinalIgnoreCase);
 
+#if NETSTANDARD2_1
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool OICContains(this string str, char value) => str.Contains(value, StringComparison.OrdinalIgnoreCase);
+#endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool OICContains(this string str, string value) => str.OICIndexOf(value) >= 0;
 
