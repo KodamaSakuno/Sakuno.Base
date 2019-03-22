@@ -21,9 +21,7 @@ build:
 test:
   assemblies:
     only:
-    - artifacts\tests\%configuration%\net462\Sakuno.Base.Tests.Fx462.dll
-    - artifacts\tests\%configuration%\netcoreapp2.2\Sakuno.Base.Tests.Core22.dll
-    - artifacts\tests\%configuration%\netcoreapp3.0\Sakuno.Base.Tests.Core30.dll
+    - artifacts\tests\$(configuration)\**\Sakuno.Base.Tests.*.dll
 after_test:
 - ps: Move-Item artifacts\$($env:configuration)\*.nupkg .
 artifacts:
