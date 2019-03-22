@@ -30,5 +30,13 @@ namespace Sakuno.Base.Tests
 
             Assert.Equal(KeyValuePair.Create(1, "a"), minItem);
         }
+
+#if NET462
+        static class KeyValuePair
+        {
+            public static KeyValuePair<TKey, TValue> Create<TKey, TValue>(TKey key, TValue value) =>
+                new KeyValuePair<TKey, TValue>(key, value);
+        }
+#endif
     }
 }

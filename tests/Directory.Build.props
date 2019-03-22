@@ -1,7 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
     <OutputType>Library</OutputType>
     <OutputPath>$(SolutionDir)artifacts\tests\$(Configuration)\</OutputPath>
   </PropertyGroup>
