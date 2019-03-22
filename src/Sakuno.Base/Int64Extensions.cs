@@ -10,6 +10,9 @@ namespace Sakuno
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long Clamp(this long value, long min, long max)
         {
+#if NETSTANDARD2_1
+            return Math.Clamp(value, min, max);
+#else
             if (min > max)
                 throw new ArgumentOutOfRangeException("Min must be less than or equal to max.");
 
@@ -20,6 +23,7 @@ namespace Sakuno
                 return max;
 
             return value;
+#endif
         }
     }
 }
