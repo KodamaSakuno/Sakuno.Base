@@ -2,7 +2,7 @@ version: 0.4.1-{build}
 branches:
   only:
   - master
-image: Visual Studio 2017
+image: Visual Studio 2019 Preview
 configuration: Release
 platform: Any CPU
 init:
@@ -17,7 +17,9 @@ build:
 test:
   assemblies:
     only:
-    - artifacts\tests\%configuration%\netcoreapp2.0\Sakuno.Base.Tests.dll
+    - artifacts\tests\%configuration%\net462\Sakuno.Base.Tests.Fx462.dll
+    - artifacts\tests\%configuration%\netcoreapp2.2\Sakuno.Base.Tests.Core22.dll
+    - artifacts\tests\%configuration%\netcoreapp3.0\Sakuno.Base.Tests.Core30.dll
 after_test:
 - ps: Move-Item artifacts\$($env:configuration)\*.nupkg .
 artifacts:
