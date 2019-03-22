@@ -21,7 +21,7 @@ build:
 test:
   assemblies:
     only:
-    - artifacts\tests\$(configuration)\**\Sakuno.Base.Tests.*.dll
+    - artifacts\tests\$(configuration)\**\Sakuno.Base.Tests.dll
 after_test:
 - ps: Move-Item artifacts\$($env:configuration)\*.nupkg .
 artifacts:
