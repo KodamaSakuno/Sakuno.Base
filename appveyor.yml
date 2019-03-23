@@ -18,12 +18,10 @@ before_build:
 build:
   project: Sakuno.Base.sln
   verbosity: minimal
-test:
-  assemblies:
-    only:
-    - artifacts\tests\$(configuration)\**\Sakuno.Base.Tests.dll
+test_script:
+- ps: dotnet test tests\Sakuno.Base.Tests\Sakuno.Base.Tests.csproj --configuration Release --no-build /property:Platform=AnyCPU
 after_test:
-- ps: Move-Item artifacts\$($env:configuration)\*.nupkg .
+- ps: Move-Item artifacts\$env:configuration\*.nupkg .
 artifacts:
 - path: '*.nupkg'
   name: NuGet
