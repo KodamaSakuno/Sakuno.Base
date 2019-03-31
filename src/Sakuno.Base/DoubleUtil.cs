@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace Sakuno
 {
     public static class DoubleUtil
     {
-        const double _epsilon = 2.2204460492503131E-15;
+        public const double Epsilon = 2.2204460492503131E-16;
 
         public static object GetBoxed(double value)
         {
@@ -22,9 +22,9 @@ namespace Sakuno
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsCloseToZero(double value) => Math.Abs(value) < _epsilon;
+        public static bool IsCloseToZero(double value) => Math.Abs(value) < Epsilon;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsCloseToOne(double value) => Math.Abs(value - 1.0) < _epsilon;
+        public static bool IsCloseToOne(double value) => Math.Abs(value - 1.0) < Epsilon;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Lerp(double from, double to, double frac) => from + (to - from) * frac;
