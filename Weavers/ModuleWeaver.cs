@@ -17,8 +17,9 @@ namespace Weavers
         {
             var targetFrameworkAttribute = ModuleDefinition.Assembly.CustomAttributes.Single(r => r.AttributeType.FullName == "System.Runtime.Versioning.TargetFrameworkAttribute");
             var frameworkName = (string)targetFrameworkAttribute.ConstructorArguments[0].Value;
-            if (frameworkName.StartsWith(".NETFramework,Version=v4."))
-                ProcessEnumExtensions();
+            LogInfo("Target: " + frameworkName);
+
+            ProcessEnumExtensions();
         }
 
         void ProcessEnumExtensions()
@@ -26,11 +27,33 @@ namespace Weavers
             var type = ModuleDefinition.GetType("Sakuno.EnumExtensions");
 
             ProcessEnumHasFlagMethod(type.GetMethod("Has"));
+
+            ProcessEnumHasAnyFlagMethod(type.GetMethod("HasAny"));
         }
 
         void ProcessEnumHasFlagMethod(MethodDefinition method)
         {
-            LogInfo("Modifying Sakuno.EnumExtensions.Has<T>()...");
+            LogInfo("Modifying Sakuno.EnumExtensions." + method.Name + "<T>()...");
+
+            var body = method.Body;
+            var processor = body.GetILProcessor();
+
+            body.Instructions.Clear();
+
+            processor.Emit(OpCodes.Ldarg_0);
+            processor.Emit(OpCodes.Ldarg_1);
+            processor.Emit(OpCodes.And);
+            processor.Emit(OpCodes.Ldarg_1);
+            processor.Emit(OpCodes.Ceq);
+            processor.Emit(OpCodes.Ret);
+        }
+
+        void ProcessEnumHasAnyFlagMethod(MethodDefinition method)
+        {
+            if (method == null)
+                return;
+
+            LogInfo("Modifying Sakuno.EnumExtensions." + method.Name + "<T>()...");
 
             var body = method.Body;
             var processor = body.GetILProcessor();

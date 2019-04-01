@@ -8,11 +8,9 @@ namespace Sakuno
     public static class EnumExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Has<T>(this T value, T flag) where T : Enum =>
-#if NET462
-            false;
-#else
-            value.HasFlag(flag);
-#endif
+        public static bool Has<T>(this T value, T flag) where T : Enum => false;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasAny<T>(this T value, T flag) where T : Enum => false;
     }
 }
