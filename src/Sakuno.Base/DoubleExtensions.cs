@@ -7,6 +7,8 @@ namespace Sakuno
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class DoubleExtensions
     {
+        const long _encodingOfPositiveInfinity = 0x7FF0000000000000L;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsInfinity(this double value) => double.IsInfinity(value);
 
@@ -33,7 +35,12 @@ namespace Sakuno
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsFinite(this double value) => value >= double.MinValue && value <= double.MaxValue;
+        public static bool IsFinite(this double value) =>
+#if NETSTANDARD2_1
+            double.IsFinite(value);
+#else
+            (BitConverter.DoubleToInt64Bits(value) & long.MaxValue) < _encodingOfPositiveInfinity;
+#endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsInteger(this double value) => value.IsFinite() && Math.Floor(value) == Math.Ceiling(value);
     }
