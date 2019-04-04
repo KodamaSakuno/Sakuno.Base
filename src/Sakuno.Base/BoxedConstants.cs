@@ -27,5 +27,10 @@
 
             public static readonly object NaN = double.NaN;
         }
+
+        public static class Structure<T> where T : struct
+        {
+            public static readonly object Default = default(T);
+        }
     }
 }
