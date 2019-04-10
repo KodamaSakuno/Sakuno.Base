@@ -21,7 +21,7 @@ build:
 test_script:
 - ps: dotnet test tests\Sakuno.Base.Tests\Sakuno.Base.Tests.csproj --configuration Release --no-build /property:Platform=AnyCPU
 after_test:
-- ps: Move-Item artifacts\$env:configuration\*.nupkg .
+- ps: Move-Item artifacts\$env:configuration\*.nupkg $env:APPVEYOR_BUILD_FOLDER
 artifacts:
 - path: '*.nupkg'
   name: NuGet
