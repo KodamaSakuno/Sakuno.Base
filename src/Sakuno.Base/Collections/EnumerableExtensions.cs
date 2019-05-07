@@ -45,26 +45,25 @@ namespace Sakuno.Collections
 
         public static IEnumerable<(T Item, bool IsLast)> EnumerateItemAndIfIsLast<T>(this IEnumerable<T> items)
         {
-            using (var enumerator = items.GetEnumerator())
+            using var enumerator = items.GetEnumerator();
+
+            var last = default(T);
+
+            if (!enumerator.MoveNext())
+                yield break;
+
+            var shouldYield = false;
+
+            do
             {
-                var last = default(T);
+                if (shouldYield)
+                    yield return (last, false);
 
-                if (!enumerator.MoveNext())
-                    yield break;
+                shouldYield = true;
+                last = enumerator.Current;
+            } while (enumerator.MoveNext());
 
-                var shouldYield = false;
-
-                do
-                {
-                    if (shouldYield)
-                        yield return (last, false);
-
-                    shouldYield = true;
-                    last = enumerator.Current;
-                } while (enumerator.MoveNext());
-
-                yield return (last, true);
-            }
+            yield return (last, true);
         }
 
         public static IEnumerable<TResult> SelectNotNull<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> resultSelector) where TResult : class
@@ -97,28 +96,27 @@ namespace Sakuno.Collections
             if (comparer == null)
                 throw new ArgumentNullException(nameof(comparer));
 
-            using (var enumerator = source.GetEnumerator())
+            using var enumerator = source.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+                throw new InvalidOperationException("There's no any element in the collection.");
+
+            var result = enumerator.Current;
+            var resultKey = keySelector(result);
+
+            while (enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                    throw new InvalidOperationException("There's no any element in the collection.");
+                var current = enumerator.Current;
+                var currentKey = keySelector(current);
 
-                var result = enumerator.Current;
-                var resultKey = keySelector(result);
+                if (comparer.Compare(currentKey, resultKey) <= 0)
+                    continue;
 
-                while (enumerator.MoveNext())
-                {
-                    var current = enumerator.Current;
-                    var currentKey = keySelector(current);
-
-                    if (comparer.Compare(currentKey, resultKey) <= 0)
-                        continue;
-
-                    result = current;
-                    resultKey = currentKey;
-                }
-
-                return result;
+                result = current;
+                resultKey = currentKey;
             }
+
+            return result;
         }
 
         public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
@@ -132,28 +130,27 @@ namespace Sakuno.Collections
             if (comparer == null)
                 throw new ArgumentNullException(nameof(comparer));
 
-            using (var enumerator = source.GetEnumerator())
+            using var enumerator = source.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+                throw new InvalidOperationException("There's no any element in the collection.");
+
+            var result = enumerator.Current;
+            var resultKey = keySelector(result);
+
+            while (enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                    throw new InvalidOperationException("There's no any element in the collection.");
+                var current = enumerator.Current;
+                var currentKey = keySelector(current);
 
-                var result = enumerator.Current;
-                var resultKey = keySelector(result);
+                if (comparer.Compare(currentKey, resultKey) >= 0)
+                    continue;
 
-                while (enumerator.MoveNext())
-                {
-                    var current = enumerator.Current;
-                    var currentKey = keySelector(current);
-
-                    if (comparer.Compare(currentKey, resultKey) >= 0)
-                        continue;
-
-                    result = current;
-                    resultKey = currentKey;
-                }
-
-                return result;
+                result = current;
+                resultKey = currentKey;
             }
+
+            return result;
         }
     }
 }
