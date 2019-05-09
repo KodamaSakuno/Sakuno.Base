@@ -21,6 +21,8 @@ namespace Sakuno.Base.Tests
             source.Remove(3);
             source.Insert(1, 6);
             source.Insert(2, 10);
+            source.Remove(5);
+            source.Remove(2);
 
             Assert.Equal(projection.Count, source.Count);
 

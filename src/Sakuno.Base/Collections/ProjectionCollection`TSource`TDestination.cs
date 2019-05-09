@@ -3,17 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Sakuno.Collections
 {
     public sealed class ProjectionCollection<TSource, TDestination> : DisposableObject, IList<TDestination>, IReadOnlyList<TDestination>, INotifyPropertyChanged, INotifyCollectionChanged
     {
-        IReadOnlyList<TSource> _source;
-        IProjector<TSource, TDestination> _projector;
+        readonly IReadOnlyList<TSource> _source;
+        readonly IProjector<TSource, TDestination> _projector;
 
-        List<TSource> _sourceSnapshot;
-        List<TDestination> _destination;
+        readonly List<TSource> _sourceSnapshot;
+        readonly List<TDestination> _destination;
 
         public int Count => _destination.Count;
 
@@ -23,7 +22,7 @@ namespace Sakuno.Collections
 
         TDestination IList<TDestination>.this[int index]
         {
-            get => _destination[index];
+            get => this[index];
             set => throw new NotSupportedException();
         }
 
@@ -45,6 +44,8 @@ namespace Sakuno.Collections
 
             if (_source is INotifyCollectionChanged sourceCollectionChanged)
                 sourceCollectionChanged.CollectionChanged += OnSourceCollectionChanged;
+            else
+                GC.SuppressFinalize(this);
         }
 
         void OnSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -77,12 +78,11 @@ namespace Sakuno.Collections
                         for (var i = 0; i < oldItems.Length; i++)
                         {
                             var oldSourceItem = (TSource)e.OldItems[i];
-                            var oldItemIndex = _sourceSnapshot.IndexOf(oldSourceItem);
 
-                            oldItems[i] = _destination[oldItemIndex];
+                            oldItems[i] = _destination[e.OldStartingIndex];
 
-                            _sourceSnapshot.RemoveAt(oldItemIndex);
-                            _destination.RemoveAt(oldItemIndex);
+                            _sourceSnapshot.RemoveAt(e.OldStartingIndex);
+                            _destination.RemoveAt(e.OldStartingIndex);
                         }
 
                         NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItems, e.OldStartingIndex));
@@ -117,18 +117,23 @@ namespace Sakuno.Collections
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    _destination.Clear();
-                    _sourceSnapshot.Clear();
-
-                    if (_source.Count > 0)
-                    {
-                        _sourceSnapshot.AddRange(_source);
-                        ProjectFromSource();
-                    }
-
-                    NotifyCollectionChanged(EventArgsCache.CollectionChanged.Reset);
+                    Reset();
                     break;
             }
+        }
+
+        public void Reset()
+        {
+            _destination.Clear();
+            _sourceSnapshot.Clear();
+
+            if (_source.Count > 0)
+            {
+                _sourceSnapshot.AddRange(_source);
+                ProjectFromSource();
+            }
+
+            NotifyCollectionChanged(EventArgsCache.CollectionChanged.Reset);
         }
 
         void ProjectFromSource()
@@ -142,9 +147,6 @@ namespace Sakuno.Collections
         public bool Contains(TDestination item) => _destination.Contains(item);
 
         public List<TDestination>.Enumerator GetEnumerator() => _destination.GetEnumerator();
-
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = null) =>
-            PropertyChanged?.Invoke(this, EventArgsCache.PropertyChanged.Get(propertyName));
 
         void NotifyCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
@@ -163,7 +165,7 @@ namespace Sakuno.Collections
             CollectionChanged?.Invoke(this, e);
         }
 
-        protected override void DisposeManagedResources()
+        protected override void DisposeNativeResources()
         {
             if (_source is INotifyCollectionChanged sourceCollectionChanged)
                 sourceCollectionChanged.CollectionChanged -= OnSourceCollectionChanged;
