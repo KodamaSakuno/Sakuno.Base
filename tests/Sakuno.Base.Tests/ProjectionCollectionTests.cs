@@ -31,6 +31,9 @@ namespace Sakuno.Base.Tests
             {
                 while (projectionEnumerator.MoveNext() && sourceEnumerator.MoveNext())
                     Assert.Equal(sourceEnumerator.Current * 2, projectionEnumerator.Current);
+
+                Assert.False(projectionEnumerator.MoveNext());
+                Assert.False(sourceEnumerator.MoveNext());
             }
 
             source.Clear();
