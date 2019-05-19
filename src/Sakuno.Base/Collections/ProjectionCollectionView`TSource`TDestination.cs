@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Sakuno.Collections
 {
-    public sealed class ProjectionCollection<TSource, TDestination> : DisposableObject, IList<TDestination>, IReadOnlyList<TDestination>, INotifyPropertyChanged, INotifyCollectionChanged
+    public sealed partial class ProjectionCollectionView<TSource, TDestination> : DisposableObject, IReadOnlyList<TDestination>, IList, INotifyPropertyChanged, INotifyCollectionChanged
     {
         readonly IReadOnlyList<TSource> _source;
         readonly IProjector<TSource, TDestination> _projector;
@@ -18,20 +18,12 @@ namespace Sakuno.Collections
 
         public TDestination this[int index] => _destination[index];
 
-        bool ICollection<TDestination>.IsReadOnly => true;
-
-        TDestination IList<TDestination>.this[int index]
-        {
-            get => this[index];
-            set => throw new NotSupportedException();
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public ProjectionCollection(IReadOnlyList<TSource> source, Func<TSource, TDestination> projector)
+        public ProjectionCollectionView(IReadOnlyList<TSource> source, Func<TSource, TDestination> projector)
             : this(source, projector != null ? new DelegatedProjector<TSource, TDestination>(projector) : null) { }
-        public ProjectionCollection(IReadOnlyList<TSource> source, IProjector<TSource, TDestination> projector)
+        public ProjectionCollectionView(IReadOnlyList<TSource> source, IProjector<TSource, TDestination> projector)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
             _projector = projector ?? throw new ArgumentNullException(nameof(projector));
@@ -113,7 +105,7 @@ namespace Sakuno.Collections
                     _destination.Insert(e.NewStartingIndex, movedItem);
                     _sourceSnapshot.Insert(e.NewStartingIndex, movedItemOfSource);
 
-                    NotifyCollectionItemChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, movedItem, e.OldStartingIndex, e.NewStartingIndex));
+                    NotifyCollectionItemChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, movedItem, e.NewStartingIndex, e.OldStartingIndex));
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
@@ -143,8 +135,7 @@ namespace Sakuno.Collections
         }
 
         public int IndexOf(TDestination item) => _destination.IndexOf(item);
-
-        public bool Contains(TDestination item) => _destination.Contains(item);
+        public bool Contains(TDestination item) => IndexOf(item) != -1;
 
         public List<TDestination>.Enumerator GetEnumerator() => _destination.GetEnumerator();
 
@@ -170,18 +161,5 @@ namespace Sakuno.Collections
             if (_source is INotifyCollectionChanged sourceCollectionChanged)
                 sourceCollectionChanged.CollectionChanged -= OnSourceCollectionChanged;
         }
-
-        void IList<TDestination>.Insert(int index, TDestination item) => throw new NotSupportedException();
-        void IList<TDestination>.RemoveAt(int index) => throw new NotSupportedException();
-
-        void ICollection<TDestination>.Add(TDestination item) => throw new NotSupportedException();
-        bool ICollection<TDestination>.Remove(TDestination item) => throw new NotSupportedException();
-        void ICollection<TDestination>.Clear() => throw new NotSupportedException();
-
-        void ICollection<TDestination>.CopyTo(TDestination[] array, int arrayIndex) =>
-            _destination.CopyTo(array, arrayIndex);
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        IEnumerator<TDestination> IEnumerable<TDestination>.GetEnumerator() => GetEnumerator();
     }
 }

@@ -4,13 +4,13 @@ using Xunit;
 
 namespace Sakuno.Base.Tests
 {
-    public static class ProjectionCollectionTests
+    public static class ProjectionCollectionViewTests
     {
         [Fact]
         public static void SimpleProjection()
         {
             var source = new ObservableCollection<int>();
-            var projection = new ProjectionCollection<int, int>(source, r => r * 2);
+            var projection = new ProjectionCollectionView<int, int>(source, r => r * 2);
 
             source.Add(1);
             source.Add(2);
