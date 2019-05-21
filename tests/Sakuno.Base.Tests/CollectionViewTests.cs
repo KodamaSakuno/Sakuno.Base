@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Sakuno.Base.Tests
 {
-    public static class ProjectionCollectionViewTests
+    public static class CollectionViewTests
     {
         [Fact]
         public static void SimpleProjection()
