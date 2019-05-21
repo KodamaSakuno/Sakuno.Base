@@ -1,5 +1,7 @@
 ﻿using Sakuno.Collections;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Xunit;
 
 namespace Sakuno.Base.Tests
@@ -10,37 +12,40 @@ namespace Sakuno.Base.Tests
         public static void SimpleProjection()
         {
             var source = new ObservableCollection<int>();
-            var projection = new ProjectionCollectionView<int, int>(source, r => r * 2);
+            using var projection = new ProjectionCollectionView<int, int>(source, r => r * 2);
 
-            source.Add(1);
-            source.Add(2);
-            source.Add(3);
-            source.Add(4);
-            source.Add(5);
+            for (var i = 0; i < 100; i++)
+                source.Add(i);
 
-            source.Remove(3);
-            source.Insert(1, 6);
-            source.Insert(2, 10);
-            source.Remove(5);
-            source.Remove(2);
+            var random = new Random();
 
-            Assert.Equal(projection.Count, source.Count);
-
-            using (var projectionEnumerator = projection.GetEnumerator())
-            using (var sourceEnumerator = source.GetEnumerator())
+            for (var i = 0; i < 20; i++)
             {
-                while (projectionEnumerator.MoveNext() && sourceEnumerator.MoveNext())
-                    Assert.Equal(sourceEnumerator.Current * 2, projectionEnumerator.Current);
+                var index = random.Next(0, source.Count);
 
-                Assert.False(projectionEnumerator.MoveNext());
-                Assert.False(sourceEnumerator.MoveNext());
+                source.RemoveAt(index);
             }
+
+            for (var i = 0; i < 20; i++)
+            {
+                var index = random.Next(0, source.Count);
+
+                source.Insert(index, random.Next(0, 1000));
+            }
+
+            for (var i = 0; i < 20; i++)
+            {
+                var index = random.Next(0, source.Count);
+
+                source[index] = random.Next(0, 1000);
+            }
+
+            Assert.Equal(source.Count, projection.Count);
+            Assert.Equal(source.Select(r => r * 2), projection);
 
             source.Clear();
 
             Assert.Empty(projection);
-
-            projection.Dispose();
         }
     }
 }
