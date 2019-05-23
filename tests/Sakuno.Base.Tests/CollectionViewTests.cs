@@ -1,4 +1,4 @@
-﻿using Sakuno.Collections;
+using Sakuno.Collections;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -101,7 +101,7 @@ namespace Sakuno.Base.Tests
             {
                 var index = random.Next(0, source.Count);
 
-                source[i].Value = random.Next(0, 1000);
+                source[index].Value = random.Next(0, 1000);
             }
 
             Assert.Equal(source.Where(r => r.Value % 2 == 0), filtered);
