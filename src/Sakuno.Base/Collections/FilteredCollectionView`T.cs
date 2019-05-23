@@ -74,6 +74,9 @@ namespace Sakuno.Collections
 
                             _indexes.Insert(index, e.NewStartingIndex + i);
                             newItems.Add(newItem);
+
+                            if (_shouldUpdate != null && newItem is INotifyPropertyChanged notifyPropertyChanged && _notifyPropertyChanged.Add(notifyPropertyChanged))
+                                notifyPropertyChanged.PropertyChanged += OnItemPropertyChanged;
                         }
 
                         NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newItems.ToArray(), startIndex));
@@ -87,8 +90,10 @@ namespace Sakuno.Collections
                         for (var i = 0; i < e.OldItems.Count; i++)
                         {
                             var oldItem = (T)e.OldItems[i];
-                            var index = _sourceSnapshot.IndexOf(oldItem);
+                            if (_shouldUpdate != null && oldItem is INotifyPropertyChanged notifyPropertyChanged && _notifyPropertyChanged.Remove(notifyPropertyChanged))
+                                notifyPropertyChanged.PropertyChanged -= OnItemPropertyChanged;
 
+                            var index = _sourceSnapshot.IndexOf(oldItem);
                             _sourceSnapshot.Remove(oldItem);
 
                             index = _indexes.BinarySearch(index);
@@ -126,6 +131,15 @@ namespace Sakuno.Collections
                         var actualIndex = _indexes.BinarySearch(e.NewStartingIndex);
 
                         _sourceSnapshot[e.NewStartingIndex] = newItem;
+
+                        if (_shouldUpdate != null)
+                        {
+                            if (oldItem is INotifyPropertyChanged oldNotifyPropertyChanged && _notifyPropertyChanged.Remove(oldNotifyPropertyChanged))
+                                oldNotifyPropertyChanged.PropertyChanged -= OnItemPropertyChanged;
+
+                            if (newItem is INotifyPropertyChanged newNotifyPropertyChanged && _notifyPropertyChanged.Add(newNotifyPropertyChanged))
+                                newNotifyPropertyChanged.PropertyChanged += OnItemPropertyChanged;
+                        }
 
                         var predication = _predicate(newItem);
                         if (actualIndex < 0 && !predication)
