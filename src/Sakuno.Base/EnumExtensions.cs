@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable IDE0060
+
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -14,3 +16,4 @@ namespace Sakuno
         public static bool HasAny<T>(this T value, T flag) where T : Enum => false;
     }
 }
+#pragma warning restore IDE0060

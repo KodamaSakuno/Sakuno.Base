@@ -7,7 +7,9 @@ namespace Sakuno
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class DoubleExtensions
     {
+#if !NETSTANDARD2_1
         const long _encodingOfPositiveInfinity = 0x7FF0000000000000L;
+#endif
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsInfinity(this double value) => double.IsInfinity(value);

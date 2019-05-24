@@ -8,8 +8,10 @@ namespace Sakuno
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TaskExtensions
     {
+#pragma warning disable IDE0060
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Forget(this Task task) { }
+#pragma warning restore IDE0060
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void WaitAndUnwarp(this Task task) => task.GetAwaiter().GetResult();
