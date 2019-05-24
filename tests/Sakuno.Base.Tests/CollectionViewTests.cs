@@ -3,7 +3,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Xunit;
 
 namespace Sakuno.Base.Tests
@@ -16,31 +15,7 @@ namespace Sakuno.Base.Tests
             var source = new ObservableCollection<int>();
             using var projection = new ProjectionCollectionView<int, int>(source, r => r * 2);
 
-            for (var i = 0; i < 100; i++)
-                source.Add(i);
-
-            var random = new Random();
-
-            for (var i = 0; i < 20; i++)
-            {
-                var index = random.Next(0, source.Count);
-
-                source.RemoveAt(index);
-            }
-
-            for (var i = 0; i < 20; i++)
-            {
-                var index = random.Next(0, source.Count);
-
-                source.Insert(index, random.Next(0, 1000));
-            }
-
-            for (var i = 0; i < 20; i++)
-            {
-                var index = random.Next(0, source.Count);
-
-                source[index] = random.Next(0, 1000);
-            }
+            DoTest(source);
 
             Assert.Equal(source.Count, projection.Count);
             Assert.Equal(source.Select(r => r * 2), projection);
@@ -48,6 +23,11 @@ namespace Sakuno.Base.Tests
             source.Clear();
 
             Assert.Empty(projection);
+
+            DoTest(source);
+
+            Assert.Equal(source.Count, projection.Count);
+            Assert.Equal(source.Select(r => r * 2), projection);
         }
 
         [Fact]
@@ -56,37 +36,17 @@ namespace Sakuno.Base.Tests
             var source = new ObservableCollection<int>();
             using var filtered = new FilteredCollectionView<int>(source, r => r % 2 == 0);
 
-            for (var i = 0; i < 100; i++)
-                source.Add(i);
-
-            var random = new Random();
-
-            for (var i = 0; i < 20; i++)
-            {
-                var index = random.Next(0, source.Count);
-
-                source.RemoveAt(index);
-            }
-
-            for (var i = 0; i < 20; i++)
-            {
-                var index = random.Next(0, source.Count);
-
-                source.Insert(index, random.Next(0, 1000));
-            }
-
-            for (var i = 0; i < 20; i++)
-            {
-                var index = random.Next(0, source.Count);
-
-                source[index] = random.Next(0, 1000);
-            }
+            DoTest(source);
 
             Assert.Equal(source.Where(r => r % 2 == 0), filtered);
 
             source.Clear();
 
             Assert.Empty(filtered);
+
+            DoTest(source);
+
+            Assert.Equal(source.Where(r => r % 2 == 0), filtered);
         }
 
         [Fact]
@@ -95,14 +55,7 @@ namespace Sakuno.Base.Tests
             var source = new ObservableCollection<Item>(Enumerable.Range(0, 100).Select(r => new Item(r)));
             using var filtered = new FilteredCollectionView<Item>(source, r => r.Value % 2 == 0, propertyName => propertyName == nameof(Item.Value));
 
-            var random = new Random();
-
-            for (var i = 0; i < 80; i++)
-            {
-                var index = random.Next(0, source.Count);
-
-                source[index].Value = random.Next(0, 1000);
-            }
+            DoTest(source);
 
             Assert.Equal(source.Where(r => r.Value % 2 == 0), filtered);
         }
@@ -113,6 +66,32 @@ namespace Sakuno.Base.Tests
             var source = new ObservableCollection<int>();
             using var ordered = new OrderedCollectionView<int>(source, null);
 
+            DoTest(source);
+
+            Assert.Equal(source.OrderBySelf(), ordered);
+
+            source.Clear();
+
+            Assert.Empty(ordered);
+
+            DoTest(source);
+
+            Assert.Equal(source.OrderBySelf(), ordered);
+        }
+
+        [Fact]
+        public static void OrderByProperty()
+        {
+            var source = new ObservableCollection<Item>(Enumerable.Range(0, 100).Select(r => new Item(r)));
+            using var ordered = new OrderedCollectionView<Item>(source, propertyName => propertyName == nameof(Item.Value));
+
+            DoTest(source);
+
+            Assert.Equal(source.OrderBy(r => r.Value), ordered);
+        }
+
+        static void DoTest(ObservableCollection<int> source)
+        {
             for (var i = 0; i < 100; i++)
                 source.Add(i);
 
@@ -138,20 +117,9 @@ namespace Sakuno.Base.Tests
 
                 source[index] = random.Next(0, 1000);
             }
-
-            Assert.Equal(source.OrderBySelf(), ordered);
-
-            source.Clear();
-
-            Assert.Empty(ordered);
         }
-
-        [Fact]
-        public static void OrderByProperty()
+        static void DoTest(ObservableCollection<Item> source)
         {
-            var source = new ObservableCollection<Item>(Enumerable.Range(0, 100).Select(r => new Item(r)));
-            using var ordered = new OrderedCollectionView<Item>(source, propertyName => propertyName == nameof(Item.Value));
-
             var random = new Random();
 
             for (var i = 0; i < 80; i++)
@@ -160,8 +128,6 @@ namespace Sakuno.Base.Tests
 
                 source[index].Value = random.Next(0, 1000);
             }
-
-            Assert.Equal(source.OrderBy(r => r.Value), ordered);
         }
 
         sealed class Item : INotifyPropertyChanged, IComparable<Item>

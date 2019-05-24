@@ -56,9 +56,7 @@ namespace Sakuno.Collections
                         var newItem = (T)e.NewItems[i];
                         _sourceSnapshot.Insert(e.NewStartingIndex + i, newItem);
 
-                        var index = _ordered.BinarySearch(newItem, _comparer);
-                        if (index < 0)
-                            index = ~index;
+                        var index = _ordered.BinarySearch(newItem, _comparer).EnsurePositiveIndex();
 
                         _ordered.Insert(index, newItem);
                         NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newItem, index));
@@ -94,9 +92,7 @@ namespace Sakuno.Collections
                         _ordered.RemoveAt(oldIndex);
 
                         var newItem = (T)e.NewItems[0];
-                        var newIndex = _ordered.BinarySearch(newItem, _comparer);
-                        if (newIndex < 0)
-                            newIndex = ~newIndex;
+                        var newIndex = _ordered.BinarySearch(newItem, _comparer).EnsurePositiveIndex();
 
                         _sourceSnapshot[e.NewStartingIndex] = newItem;
                         _ordered.Insert(newIndex, newItem);
@@ -132,9 +128,7 @@ namespace Sakuno.Collections
                 if (_shouldUpdate != null && item is INotifyPropertyChanged notifyPropertyChanged && _notifyPropertyChanged.Add(notifyPropertyChanged))
                     notifyPropertyChanged.PropertyChanged += OnItemPropertyChanged;
 
-                var index = _ordered.BinarySearch(item, _comparer);
-                if (index < 0)
-                    index = ~index;
+                var index = _ordered.BinarySearch(item, _comparer).EnsurePositiveIndex();
 
                 _ordered.Insert(index, item);
             }
@@ -147,18 +141,11 @@ namespace Sakuno.Collections
 
             var item = (T)sender;
             var oldIndex = _ordered.IndexOf(item);
-            var newIndex = _ordered.BinarySearch(0, oldIndex, item, _comparer);
-            if (newIndex < 0)
-                newIndex = ~newIndex;
+            var newIndex = _ordered.BinarySearch(0, oldIndex, item, _comparer).EnsurePositiveIndex();
 
             if (newIndex == oldIndex)
             {
-                newIndex = _ordered.BinarySearch(oldIndex + 1, _ordered.Count - oldIndex - 1, item, _comparer);
-
-                if (newIndex < 0)
-                    newIndex = ~newIndex;
-
-                newIndex--;
+                newIndex = _ordered.BinarySearch(oldIndex + 1, _ordered.Count - oldIndex - 1, item, _comparer).EnsurePositiveIndex() - 1;
 
                 if (newIndex == oldIndex)
                     return;

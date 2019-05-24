@@ -59,10 +59,7 @@ namespace Sakuno.Collections
                             var newItem = (T)e.NewItems[i];
                             _sourceSnapshot.Insert(e.NewStartingIndex + i, newItem);
 
-                            var index = _indexes.BinarySearch(e.NewStartingIndex + i);
-                            if (index < 0)
-                                index = ~index;
-
+                            var index = _indexes.BinarySearch(e.NewStartingIndex + i).EnsurePositiveIndex();
                             for (var j = index; j < _indexes.Count; j++)
                                 _indexes[j]++;
 
@@ -98,7 +95,7 @@ namespace Sakuno.Collections
 
                             index = _indexes.BinarySearch(index);
 
-                            for (var j = GetPositiveIndex(index); j < _indexes.Count; j++)
+                            for (var j = index.EnsurePositiveIndex(); j < _indexes.Count; j++)
                                 _indexes[j]--;
 
                             if (index < 0)
@@ -113,14 +110,6 @@ namespace Sakuno.Collections
 
                         if (startIndex != -1)
                             NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItems.ToArray(), startIndex));
-
-                        static int GetPositiveIndex(int index)
-                        {
-                            if (index < 0)
-                                index = ~index;
-
-                            return index;
-                        }
                     }
                     break;
 
