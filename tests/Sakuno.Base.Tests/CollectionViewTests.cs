@@ -1,4 +1,4 @@
-using Sakuno.Collections;
+﻿using Sakuno.Collections;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -107,7 +107,64 @@ namespace Sakuno.Base.Tests
             Assert.Equal(source.Where(r => r.Value % 2 == 0), filtered);
         }
 
-        sealed class Item : INotifyPropertyChanged
+        [Fact]
+        public static void SimpleOrdering()
+        {
+            var source = new ObservableCollection<int>();
+            using var ordered = new OrderedCollectionView<int>(source, null);
+
+            for (var i = 0; i < 100; i++)
+                source.Add(i);
+
+            var random = new Random();
+
+            for (var i = 0; i < 20; i++)
+            {
+                var index = random.Next(0, source.Count);
+
+                source.RemoveAt(index);
+            }
+
+            for (var i = 0; i < 20; i++)
+            {
+                var index = random.Next(0, source.Count);
+
+                source.Insert(index, random.Next(0, 1000));
+            }
+
+            for (var i = 0; i < 20; i++)
+            {
+                var index = random.Next(0, source.Count);
+
+                source[index] = random.Next(0, 1000);
+            }
+
+            Assert.Equal(source.OrderBySelf(), ordered);
+
+            source.Clear();
+
+            Assert.Empty(ordered);
+        }
+
+        [Fact]
+        public static void OrderByProperty()
+        {
+            var source = new ObservableCollection<Item>(Enumerable.Range(0, 100).Select(r => new Item(r)));
+            using var ordered = new OrderedCollectionView<Item>(source, propertyName => propertyName == nameof(Item.Value));
+
+            var random = new Random();
+
+            for (var i = 0; i < 80; i++)
+            {
+                var index = random.Next(0, source.Count);
+
+                source[index].Value = random.Next(0, 1000);
+            }
+
+            Assert.Equal(source.OrderBy(r => r.Value), ordered);
+        }
+
+        sealed class Item : INotifyPropertyChanged, IComparable<Item>
         {
             static readonly PropertyChangedEventArgs EventArgs = new PropertyChangedEventArgs(nameof(Value));
 
@@ -131,6 +188,8 @@ namespace Sakuno.Base.Tests
             {
                 _value = value;
             }
+
+            public int CompareTo(Item other) => _value - other._value;
         }
     }
 }
