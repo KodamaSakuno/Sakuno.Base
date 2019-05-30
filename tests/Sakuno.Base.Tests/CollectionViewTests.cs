@@ -10,7 +10,15 @@ namespace Sakuno.Base.Tests
     public static class CollectionViewTests
     {
         [Fact]
-        public static void SimpleProjection()
+        public static void SimpleProjectionCollectionView()
+        {
+            var source = Enumerable.Range(0, 100).ToArray();
+            var projection = new ProjectionCollectionView<int, int>(source, r => r * 2);
+
+            Assert.Equal(source.Select(r => r * 2), projection);
+        }
+        [Fact]
+        public static void ProjectionCollectionView()
         {
             var source = new ObservableCollection<int>();
             using var projection = new ProjectionCollectionView<int, int>(source, r => r * 2);
@@ -31,7 +39,15 @@ namespace Sakuno.Base.Tests
         }
 
         [Fact]
-        public static void SimpleFiltering()
+        public static void SimpleFilteredCollectionView()
+        {
+            var source = Enumerable.Range(0, 100).ToArray();
+            var filtered = new FilteredCollectionView<int>(source, r => r % 2 == 0);
+
+            Assert.Equal(source.Where(r => r % 2 == 0), filtered);
+        }
+        [Fact]
+        public static void FilteredCollectionView()
         {
             var source = new ObservableCollection<int>();
             using var filtered = new FilteredCollectionView<int>(source, r => r % 2 == 0);
@@ -50,7 +66,7 @@ namespace Sakuno.Base.Tests
         }
 
         [Fact]
-        public static void FilterByProperty()
+        public static void CollectionViewFilteredByProperty()
         {
             var source = new ObservableCollection<Item>(Enumerable.Range(0, 100).Select(r => new Item(r)));
             using var filtered = new FilteredCollectionView<Item>(source, r => r.Value % 2 == 0, propertyName => propertyName == nameof(Item.Value));
@@ -61,7 +77,16 @@ namespace Sakuno.Base.Tests
         }
 
         [Fact]
-        public static void SimpleOrdering()
+        public static void SimpleOrderedCollectionView()
+        {
+            var random = new Random();
+            var source = Enumerable.Range(0, 100).Select(_ => random.Next(0, 100)).ToArray();
+            var ordered = new OrderedCollectionView<int>(source, null);
+
+            Assert.Equal(source.OrderBySelf(), ordered);
+        }
+        [Fact]
+        public static void OrderedCollectionView()
         {
             var source = new ObservableCollection<int>();
             using var ordered = new OrderedCollectionView<int>(source, null);
@@ -80,7 +105,7 @@ namespace Sakuno.Base.Tests
         }
 
         [Fact]
-        public static void OrderByProperty()
+        public static void CollectionViewOrderedByProperty()
         {
             var source = new ObservableCollection<Item>(Enumerable.Range(0, 100).Select(r => new Item(r)));
             using var ordered = new OrderedCollectionView<Item>(source, propertyName => propertyName == nameof(Item.Value));
