@@ -136,7 +136,7 @@ namespace Sakuno.Collections
 
                         if (actualIndex >= 0 && predication)
                         {
-                            NotifyCollectionItemChanged(e);
+                            NotifyCollectionItemChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, newItem, oldItem, actualIndex));
                             return;
                         }
 
