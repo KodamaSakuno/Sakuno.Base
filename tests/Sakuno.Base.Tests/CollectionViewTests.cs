@@ -1,4 +1,4 @@
-﻿using Sakuno.Collections;
+using Sakuno.Collections;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -68,8 +68,8 @@ namespace Sakuno.Base.Tests
         [Fact]
         public static void CollectionViewFilteredByProperty()
         {
-            var source = new ObservableCollection<Item>(Enumerable.Range(0, 100).Select(r => new Item(r)));
-            using var filtered = new FilteredCollectionView<Item>(source, r => r.Value % 2 == 0, propertyName => propertyName == nameof(Item.Value));
+            var source = Enumerable.Range(0, 100).Select(r => new Item(r)).ToArray();
+            var filtered = new FilteredCollectionView<Item>(source, r => r.Value % 2 == 0, propertyName => propertyName == nameof(Item.Value));
 
             DoTest(source);
 
@@ -107,8 +107,8 @@ namespace Sakuno.Base.Tests
         [Fact]
         public static void CollectionViewOrderedByProperty()
         {
-            var source = new ObservableCollection<Item>(Enumerable.Range(0, 100).Select(r => new Item(r)));
-            using var ordered = new OrderedCollectionView<Item>(source, propertyName => propertyName == nameof(Item.Value));
+            var source = Enumerable.Range(0, 100).Select(r => new Item(r)).ToArray();
+            var ordered = new OrderedCollectionView<Item>(source, propertyName => propertyName == nameof(Item.Value));
 
             DoTest(source);
 
@@ -143,7 +143,7 @@ namespace Sakuno.Base.Tests
                 source[index] = random.Next(0, 1000);
             }
         }
-        static void DoTest(ObservableCollection<Item> source)
+        static void DoTest(IReadOnlyList<Item> source)
         {
             var random = new Random();
 
