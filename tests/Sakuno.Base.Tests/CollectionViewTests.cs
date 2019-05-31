@@ -1,5 +1,6 @@
-using Sakuno.Collections;
+﻿using Sakuno.Collections;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Sakuno.Base.Tests
         {
             var source = new ObservableCollection<int>();
             using var projection = new ProjectionCollectionView<int, int>(source, r => r * 2);
+            using var builder = new CollectionBuilder<int>(projection);
 
             DoTest(source);
 
@@ -36,6 +38,7 @@ namespace Sakuno.Base.Tests
 
             Assert.Equal(source.Count, projection.Count);
             Assert.Equal(source.Select(r => r * 2), projection);
+            Assert.Equal(source.Select(r => r * 2), builder);
         }
 
         [Fact]
@@ -51,6 +54,7 @@ namespace Sakuno.Base.Tests
         {
             var source = new ObservableCollection<int>();
             using var filtered = new FilteredCollectionView<int>(source, r => r % 2 == 0);
+            using var builder = new CollectionBuilder<int>(filtered);
 
             DoTest(source);
 
@@ -63,6 +67,7 @@ namespace Sakuno.Base.Tests
             DoTest(source);
 
             Assert.Equal(source.Where(r => r % 2 == 0), filtered);
+            Assert.Equal(source.Where(r => r % 2 == 0), builder);
         }
 
         [Fact]
@@ -70,10 +75,12 @@ namespace Sakuno.Base.Tests
         {
             var source = Enumerable.Range(0, 100).Select(r => new Item(r)).ToArray();
             var filtered = new FilteredCollectionView<Item>(source, r => r.Value % 2 == 0, propertyName => propertyName == nameof(Item.Value));
+            using var builder = new CollectionBuilder<Item>(filtered);
 
             DoTest(source);
 
             Assert.Equal(source.Where(r => r.Value % 2 == 0), filtered);
+            Assert.Equal(source.Where(r => r.Value % 2 == 0), builder);
         }
 
         [Fact]
@@ -90,6 +97,7 @@ namespace Sakuno.Base.Tests
         {
             var source = new ObservableCollection<int>();
             using var ordered = new OrderedCollectionView<int>(source, null);
+            using var builder = new CollectionBuilder<int>(ordered);
 
             DoTest(source);
 
@@ -102,6 +110,7 @@ namespace Sakuno.Base.Tests
             DoTest(source);
 
             Assert.Equal(source.OrderBySelf(), ordered);
+            Assert.Equal(source.OrderBySelf(), builder);
         }
 
         [Fact]
@@ -109,10 +118,12 @@ namespace Sakuno.Base.Tests
         {
             var source = Enumerable.Range(0, 100).Select(r => new Item(r)).ToArray();
             var ordered = new OrderedCollectionView<Item>(source, propertyName => propertyName == nameof(Item.Value));
+            using var builder = new CollectionBuilder<Item>(ordered);
 
             DoTest(source);
 
             Assert.Equal(source.OrderBy(r => r.Value), ordered);
+            Assert.Equal(source.OrderBy(r => r.Value), builder);
         }
 
         static void DoTest(ObservableCollection<int> source)
