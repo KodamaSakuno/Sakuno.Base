@@ -22,7 +22,7 @@ namespace Sakuno.Base.Tests
             _list.AddRange(_source);
         }
 
-        private void NotifyCollectionChanged_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void NotifyCollectionChanged_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -57,6 +57,7 @@ namespace Sakuno.Base.Tests
                     break;
             }
         }
+
         public void Dispose() => _notifyCollectionChanged.CollectionChanged -= NotifyCollectionChanged_CollectionChanged;
 
         public IEnumerator<T> GetEnumerator() => _list.GetEnumerator();
