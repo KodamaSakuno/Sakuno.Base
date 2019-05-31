@@ -167,6 +167,9 @@ namespace Sakuno.Collections
                     _indexes.Clear();
                     _sourceSnapshot.Clear();
 
+                    if (_source.Count > 0)
+                        ProjectFromSource();
+
                     NotifyCollectionChanged(EventArgsCache.CollectionChanged.Reset);
                     break;
             }
