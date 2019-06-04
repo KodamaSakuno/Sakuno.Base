@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net462</TargetFrameworks>
@@ -7,7 +7,7 @@
     <AssemblyName>Sakuno.Base</AssemblyName>
     <OutputPath>$(SolutionDir)artifacts\$(Configuration)\</OutputPath>
     <PackageId>Sakuno.Base</PackageId>
-    <Version>0.5.1</Version>
+    <Version>0.6-pre1</Version>
     <Authors>Kodama Sakuno</Authors>
     <Description>The common part of Sakuno's libraries</Description>
     <Product>Sakuno.Base</Product>
