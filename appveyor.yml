@@ -11,8 +11,8 @@ nuget:
   disable_publish_on_pr: true
 install:
 - ps: |
-    Start-FileDownload 'https://download.visualstudio.microsoft.com/download/pr/4d2dfaa1-4f9c-4526-bb6f-117d9d8bbd0e/a9fc9994c1b4d485ab41632b81bf4f56/dotnet-sdk-3.0.100-preview6-012264-win-x64.exe'
-    Start-Process .\dotnet-sdk-3.0.100-preview6-012264-win-x64.exe "/install /norestart /quiet /log sdkinstall.log" -NoNewWindow -Wait
+    Start-FileDownload 'https://download.visualstudio.microsoft.com/download/pr/a65e3536-ad76-4808-9920-83702aeed082/3c6ab9eaa0bc99df442be91e7b7950ff/dotnet-sdk-3.0.100-preview7-012821-win-x64.exe'
+    Start-Process .\dotnet-sdk-3.0.100-preview7-012821-win-x64.exe "/install /norestart /quiet /log sdkinstall.log" -NoNewWindow -Wait
 before_build:
 - cmd: nuget restore
 build:
