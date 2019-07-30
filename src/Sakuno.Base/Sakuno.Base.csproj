@@ -5,7 +5,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Sakuno</RootNamespace>
     <AssemblyName>Sakuno.Base</AssemblyName>
-    <OutputPath>$(SolutionDir)artifacts\$(Configuration)\</OutputPath>
+    <OutputPath>$(BasePath)artifacts\$(Configuration)\</OutputPath>
     <PackageId>Sakuno.Base</PackageId>
     <Version>0.6-pre1</Version>
     <Authors>Kodama Sakuno</Authors>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <WeaverFiles Include="$(SolutionDir)Weavers\bin\$(Configuration)\netstandard2.0\Weavers.dll" />
+    <WeaverFiles Include="$(BasePath)Weavers\bin\$(Configuration)\netstandard2.0\Weavers.dll" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.2;netcoreapp3.0;net462</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <OutputPath>$(SolutionDir)artifacts\tests\$(Configuration)\</OutputPath>
+    <OutputPath>$(BasePath)artifacts\tests\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)src\Sakuno.Base\Sakuno.Base.csproj" />
+    <ProjectReference Include="$(BasePath)src\Sakuno.Base\Sakuno.Base.csproj" />
   </ItemGroup>
 
 </Project>

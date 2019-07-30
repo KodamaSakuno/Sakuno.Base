@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
 
-  <PropertyGroup Label="BasePath">
-    <SolutionDir Condition="'$(SolutionDir)'==''">$(MSBuildThisFileDirectory)</SolutionDir>
+  <PropertyGroup>
+    <BasePath>$(MSBuildThisFileDirectory)</BasePath>
+    <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
   </PropertyGroup>
 
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
   </PropertyGroup>
 
 </Project>
