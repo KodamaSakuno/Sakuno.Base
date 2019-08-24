@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -32,5 +33,13 @@ namespace Sakuno
         public static Task<Task> WhenAny(this IEnumerable<Task> tasks) => Task.WhenAny(tasks);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<Task<T>> WhenAny<T>(this IEnumerable<Task<T>> tasks) => Task.WhenAny(tasks);
+
+#if NETSTANDARD2_1
+        public static async IAsyncEnumerable<T> AsAsyncEnumeable<T>(this IEnumerable<Task<T>> tasks)
+        {
+            foreach (var task in tasks.ToArray())
+                yield return await task;
+        }
+#endif
     }
 }
