@@ -1,15 +1,12 @@
 version: 0.6-pre1-{build}
-image: Visual Studio 2019 Preview
+image: Visual Studio 2019
 environment:
   global:
-    DOTNET_CLI_TELEMETRY_OPTOUT: 1
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+    DOTNET_CLI_TELEMETRY_OPTOUT: true
 clone_depth: 10
 init:
 - git config --global core.autocrlf true
-install:
-- ps: |
-    Start-FileDownload 'https://download.visualstudio.microsoft.com/download/pr/a46fa009-033b-430d-89a8-c9a107f73d87/d25f962e8212aafb3b0c426eb8cb4dc6/dotnet-sdk-3.0.100-preview8-013656-win-x64.exe'
-    Start-Process .\dotnet-sdk-3.0.100-preview8-013656-win-x64.exe "/install /norestart /quiet /log sdkinstall.log" -NoNewWindow -Wait
 build_script:
 - dotnet build -c Release
 test_script:
