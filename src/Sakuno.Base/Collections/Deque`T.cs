@@ -126,19 +126,13 @@ namespace Sakuno.Collections
 
             return result;
         }
-        public T Dequeue(QueueSide side)
+        public T Dequeue(QueueSide side) => side switch
         {
-            switch (side)
-            {
-                case QueueSide.Back:
-                    return DequeueBack();
+            QueueSide.Back => DequeueBack(),
+            QueueSide.Front => Dequeue(),
 
-                case QueueSide.Front:
-                    return Dequeue();
-
-                default: throw new ArgumentException(nameof(side));
-            }
-        }
+            _ => throw new ArgumentException(nameof(side)),
+        };
 
         public T Peek()
         {
@@ -156,19 +150,13 @@ namespace Sakuno.Collections
 
             return _array[tail];
         }
-        public T Peek(QueueSide side)
+        public T Peek(QueueSide side) => side switch
         {
-            switch (side)
-            {
-                case QueueSide.Back:
-                    return PeekBack();
+            QueueSide.Back => PeekBack(),
+            QueueSide.Front => Peek(),
 
-                case QueueSide.Front:
-                    return Peek();
-
-                default: throw new ArgumentException(nameof(side));
-            }
-        }
+            _ => throw new ArgumentException(nameof(side)),
+        };
 
         public void Clear()
         {
@@ -236,19 +224,13 @@ namespace Sakuno.Collections
 
         public Enumerator GetEnumerator() => new Enumerator(this);
         public ReverseEnumerator GetReverseEnumerator() => new ReverseEnumerator(this);
-        public IEnumerator<T> GetEnumerator(QueueSide side)
+        public IEnumerator<T> GetEnumerator(QueueSide side) => side switch
         {
-            switch (side)
-            {
-                case QueueSide.Back:
-                    return GetReverseEnumerator();
+            QueueSide.Back => GetReverseEnumerator(),
+            QueueSide.Front => GetEnumerator(),
 
-                case QueueSide.Front:
-                    return GetEnumerator();
-
-                default: throw new ArgumentException(nameof(side));
-            }
-        }
+            _ => throw new ArgumentException(nameof(side)),
+        };
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
