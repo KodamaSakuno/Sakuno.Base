@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2;netcoreapp3.0;net462</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net462</TargetFrameworks>
     <OutputType>Library</OutputType>
     <OutputPath>$(BasePath)artifacts\tests\$(Configuration)\</OutputPath>
   </PropertyGroup>
