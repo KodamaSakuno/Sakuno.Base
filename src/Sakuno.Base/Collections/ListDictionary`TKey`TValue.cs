@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Sakuno.Collections
 {
     public class ListDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        IEqualityComparer<TKey> _comparer;
+        IEqualityComparer<TKey>? _comparer;
 
-        Node _head;
+        Node? _head;
 
         int _count;
         public int Count => _count;
@@ -54,7 +55,7 @@ namespace Sakuno.Collections
             }
         }
 
-        KeyCollection _keys;
+        KeyCollection? _keys;
         public ICollection<TKey> Keys
         {
             get
@@ -66,7 +67,7 @@ namespace Sakuno.Collections
             }
         }
 
-        ValueCollection _values;
+        ValueCollection? _values;
         public ICollection<TValue> Values
         {
             get
@@ -81,7 +82,7 @@ namespace Sakuno.Collections
         bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => false;
 
         public ListDictionary() { }
-        public ListDictionary(IEqualityComparer<TKey> comparer)
+        public ListDictionary(IEqualityComparer<TKey>? comparer)
         {
             _comparer = comparer;
         }
@@ -91,14 +92,14 @@ namespace Sakuno.Collections
         {
             _version++;
 
-            Node node = null;
-            Node current;
+            Node? node = null;
+            Node? current;
 
             for (current = _head; current != null; current = current.Next)
             {
                 var nodeKey = current.Key;
 
-                if (_comparer == null ? nodeKey.Equals(key) : _comparer.Equals(key, nodeKey))
+                if (_comparer == null ? EqualityComparer<TKey>.Default.Equals(nodeKey, key) : _comparer.Equals(key, nodeKey))
                     if (throwExceptionOnDuplicatedKey)
                         throw new ArgumentException();
                     else
@@ -113,7 +114,7 @@ namespace Sakuno.Collections
                 return;
             }
 
-            var newNode = new Node() { Key = key, Value = value };
+            var newNode = new Node(key, value);
 
             if (node != null)
                 node.Next = newNode;
@@ -129,14 +130,14 @@ namespace Sakuno.Collections
 
             _version++;
 
-            Node node = null;
-            Node current;
+            Node? node = null;
+            Node? current;
 
             for (current = _head; current != null; current = current.Next)
             {
                 var nodeKey = current.Key;
 
-                if (_comparer == null ? nodeKey.Equals(key) : _comparer.Equals(key, nodeKey))
+                if (_comparer == null ? EqualityComparer<TKey>.Default.Equals(nodeKey, key) : _comparer.Equals(key, nodeKey))
                     break;
 
                 node = current;
@@ -148,7 +149,7 @@ namespace Sakuno.Collections
             if (current == _head)
                 _head = current.Next;
             else
-                node.Next = current.Next;
+                node!.Next = current.Next;
 
             _count--;
 
@@ -170,28 +171,28 @@ namespace Sakuno.Collections
             {
                 var nodeKey = current.Key;
 
-                if (_comparer == null ? nodeKey.Equals(key) : _comparer.Equals(key, nodeKey))
+                if (_comparer == null ? EqualityComparer<TKey>.Default.Equals(nodeKey, key) : _comparer.Equals(key, nodeKey))
                     return true;
             }
 
             return false;
         }
 
-        public bool TryGetValue(TKey key, out TValue value)
+        public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
         {
-            Node current;
+            Node? current;
 
             for (current = _head; current != null; current = current.Next)
             {
                 var nodeKey = current.Key;
 
-                if (_comparer == null ? nodeKey.Equals(key) : _comparer.Equals(key, nodeKey))
+                if (_comparer == null ? EqualityComparer<TKey>.Default.Equals(nodeKey, key) : _comparer.Equals(key, nodeKey))
                     break;
             }
 
             if (current == null)
             {
-                value = default;
+                value = default!;
                 return false;
             }
 
@@ -237,10 +238,16 @@ namespace Sakuno.Collections
 
         class Node
         {
-            public TKey Key;
-            public TValue Value;
+            public TKey Key { get; }
+            public TValue Value { get; set; }
 
-            public Node Next;
+            public Node? Next;
+
+            public Node(TKey key, TValue value)
+            {
+                Key = key;
+                Value = value;
+            }
         }
 
         public class KeyCollection : ICollection<TKey>

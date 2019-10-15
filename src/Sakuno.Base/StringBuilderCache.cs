@@ -8,7 +8,7 @@ namespace Sakuno
         const int MaxLength = 360;
 
         [ThreadStatic]
-        static StringBuilder _cachedInstance;
+        static StringBuilder? _cachedInstance;
 
         public static StringBuilder Acquire(int capacity = 16)
         {

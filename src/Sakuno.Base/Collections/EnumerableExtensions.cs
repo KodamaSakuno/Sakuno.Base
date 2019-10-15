@@ -47,7 +47,7 @@ namespace Sakuno.Collections
         {
             using var enumerator = items.GetEnumerator();
 
-            var last = default(T);
+            var last = default(T)!;
 
             if (!enumerator.MoveNext())
                 yield break;

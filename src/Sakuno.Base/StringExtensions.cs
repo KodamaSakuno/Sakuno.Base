@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace Sakuno
@@ -9,21 +10,21 @@ namespace Sakuno
     public static class StringExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
+        public static bool IsNullOrEmpty([NotNullWhen(false)] this string? value) => string.IsNullOrEmpty(value);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNullOrWhiteSpace(this string value) => string.IsNullOrWhiteSpace(value);
+        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? value) => string.IsNullOrWhiteSpace(value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInterned(this string value) => string.IsInterned(value) == value;
+        public static bool IsInterned([NotNullWhen(true)] this string value) => string.IsInterned(value) == value;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string Join(this IEnumerable<string> values, string separator) => string.Join(separator, values);
+        public static string Join(this IEnumerable<string>? values, string? separator) => string.Join(separator, values);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int OICCompare(this string str, string value) => string.Compare(str, value, StringComparison.OrdinalIgnoreCase);
+        public static int OICCompare(this string? str, string? value) => string.Compare(str, value, StringComparison.OrdinalIgnoreCase);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool OICEquals(this string str, string value) => str.Equals(value, StringComparison.OrdinalIgnoreCase);
+        public static bool OICEquals(this string? str, string? value) => string.Equals(str, value, StringComparison.OrdinalIgnoreCase);
 
 #if NETSTANDARD2_1
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

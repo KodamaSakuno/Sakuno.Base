@@ -10,7 +10,7 @@ namespace Sakuno.Collections
     {
         readonly IReadOnlyList<T> _source;
         readonly Predicate<T> _predicate;
-        readonly Predicate<string> _shouldUpdate;
+        readonly Predicate<string>? _shouldUpdate;
 
         readonly List<T> _sourceSnapshot;
         readonly List<int> _indexes;
@@ -20,11 +20,11 @@ namespace Sakuno.Collections
 
         public T this[int index] => _sourceSnapshot[_indexes[index]];
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
         public FilteredCollectionView(IReadOnlyList<T> source, Predicate<T> predicate) : this(source, predicate, null) { }
-        public FilteredCollectionView(IReadOnlyList<T> source, Predicate<T> predicate, Predicate<string> shouldUpdate)
+        public FilteredCollectionView(IReadOnlyList<T> source, Predicate<T> predicate, Predicate<string>? shouldUpdate)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
 

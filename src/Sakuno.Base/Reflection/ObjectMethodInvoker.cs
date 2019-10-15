@@ -4,10 +4,10 @@ namespace Sakuno.Reflection
 {
     public sealed class ObjectMethodInvoker
     {
-        Type _instanceType;
-        string _methodName;
+        Type? _instanceType;
+        string? _methodName;
 
-        MethodInvoker _invoker;
+        MethodInvoker? _invoker;
 
         public void Invoke(object instance, string methodName)
         {
@@ -20,7 +20,7 @@ namespace Sakuno.Reflection
 
             if (_instanceType == instanceType && _methodName == methodName)
             {
-                _invoker.Invoke(instance);
+                _invoker!.Invoke(instance);
                 return;
             }
 

@@ -21,8 +21,8 @@ namespace Sakuno.Collections
 
         public SortedList() : this(4, null) { }
         public SortedList(int capacity) : this(capacity, null) { }
-        public SortedList(IComparer<T> comparer) : this(4, comparer) { }
-        public SortedList(int capacity, IComparer<T> comparer)
+        public SortedList(IComparer<T>? comparer) : this(4, comparer) { }
+        public SortedList(int capacity, IComparer<T>? comparer)
         {
             _list = new List<T>(capacity);
             _comparer = comparer ?? Comparer<T>.Default;

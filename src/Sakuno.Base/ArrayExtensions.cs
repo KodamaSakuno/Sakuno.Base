@@ -31,7 +31,7 @@ namespace Sakuno
         static char GetHexValue(int value) => (char)(value < 10 ? value + '0' : value - 10 + 'a');
 
         public static bool SequenceEqual<T>(this T[] array, T[] value) => array.SequenceEqual(value, null);
-        public static bool SequenceEqual<T>(this T[] array, T[] value, IEqualityComparer<T> comparer)
+        public static bool SequenceEqual<T>(this T[] array, T[] value, IEqualityComparer<T>? comparer)
         {
             if (array == value)
                 return true;
@@ -43,7 +43,13 @@ namespace Sakuno
                 return false;
 
             if (comparer == null)
-                comparer = EqualityComparer<T>.Default;
+            {
+                for (var i = 0; i < array.Length; i++)
+                    if (!EqualityComparer<T>.Default.Equals(array[i], value[i]))
+                        return false;
+
+                return true;
+            }
 
             for (var i = 0; i < array.Length; i++)
                 if (!comparer.Equals(array[i], value[i]))

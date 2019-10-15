@@ -9,7 +9,7 @@ namespace Sakuno.Collections
     public sealed partial class OrderedCollectionView<T> : DisposableObject, IReadOnlyList<T>, IList, INotifyPropertyChanged, INotifyCollectionChanged
     {
         readonly IReadOnlyList<T> _source;
-        readonly Predicate<string> _shouldUpdate;
+        readonly Predicate<string>? _shouldUpdate;
 
         readonly List<T> _sourceSnapshot;
         readonly List<T> _ordered;
@@ -21,11 +21,11 @@ namespace Sakuno.Collections
 
         public T this[int index] => _ordered[index];
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
         public OrderedCollectionView(IReadOnlyList<T> source) : this(source, null) { }
-        public OrderedCollectionView(IReadOnlyList<T> source, Predicate<string> shouldUpdate)
+        public OrderedCollectionView(IReadOnlyList<T> source, Predicate<string>? shouldUpdate)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
             _shouldUpdate = shouldUpdate;

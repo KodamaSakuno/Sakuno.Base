@@ -52,7 +52,7 @@ namespace Sakuno.Collections
 
             public T Current => _source.Current.Key;
 
-            object IEnumerator.Current => Current;
+            object? IEnumerator.Current => Current;
 
             public Enumerator(IEnumerator<KeyValuePair<T, byte>> source)
             {

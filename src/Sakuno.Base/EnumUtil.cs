@@ -24,7 +24,7 @@ namespace Sakuno
                 return result;
             });
 
-            public static object Get(T value) => _boxes.GetOrAdd(value, IdentityFunction<T>.BoxedInstance);
+            public static object Get(T value) => _boxes.GetOrAdd(value, IdentityFunction<T>.BoxedInstance!);
         }
     }
 }

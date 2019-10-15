@@ -7,8 +7,8 @@ namespace Sakuno.Collections
     {
         public static EmptyEnumerator<T> Instance { get; } = new EmptyEnumerator<T>();
 
-        public T Current => default;
-        object IEnumerator.Current => Current;
+        public T Current => default!;
+        object? IEnumerator.Current => Current;
 
         public bool MoveNext() => false;
         public void Reset() { }

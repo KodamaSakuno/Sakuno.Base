@@ -43,8 +43,8 @@ namespace Sakuno.Collections
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
         public ConcatenatedCollectionView(IReadOnlyList<IReadOnlyList<T>> source)
         {

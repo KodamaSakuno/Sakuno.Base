@@ -11,7 +11,7 @@ namespace Sakuno.Collections
         bool ICollection.IsSynchronized => throw new NotSupportedException();
         object ICollection.SyncRoot => throw new NotSupportedException();
 
-        object IList.this[int index]
+        object? IList.this[int index]
         {
             get => this[index];
             set => throw new NotSupportedException();

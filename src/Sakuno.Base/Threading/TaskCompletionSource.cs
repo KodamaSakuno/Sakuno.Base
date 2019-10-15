@@ -6,25 +6,25 @@ namespace Sakuno.Threading
 {
     public sealed class TaskCompletionSource
     {
-        TaskCompletionSource<object> _tcs;
+        TaskCompletionSource<object?> _tcs;
 
         public Task Task => _tcs.Task;
 
         public TaskCompletionSource()
         {
-            _tcs = new TaskCompletionSource<object>();
+            _tcs = new TaskCompletionSource<object?>();
         }
         public TaskCompletionSource(object state)
         {
-            _tcs = new TaskCompletionSource<object>(state);
+            _tcs = new TaskCompletionSource<object?>(state);
         }
         public TaskCompletionSource(TaskCreationOptions creationOptions)
         {
-            _tcs = new TaskCompletionSource<object>(creationOptions);
+            _tcs = new TaskCompletionSource<object?>(creationOptions);
         }
         public TaskCompletionSource(object state, TaskCreationOptions creationOptions)
         {
-            _tcs = new TaskCompletionSource<object>(state, creationOptions);
+            _tcs = new TaskCompletionSource<object?>(state, creationOptions);
         }
 
         public void SetResult() => _tcs.SetResult(null);

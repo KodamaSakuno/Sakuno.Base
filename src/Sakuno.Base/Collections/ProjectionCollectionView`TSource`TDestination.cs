@@ -18,12 +18,12 @@ namespace Sakuno.Collections
 
         public TDestination this[int index] => _destination[index];
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-        public ProjectionCollectionView(IReadOnlyList<TSource> source, Func<TSource, TDestination> projector)
+        public ProjectionCollectionView(IReadOnlyList<TSource> source, Func<TSource, TDestination>? projector)
             : this(source, projector != null ? new DelegatedProjector<TSource, TDestination>(projector) : null) { }
-        public ProjectionCollectionView(IReadOnlyList<TSource> source, IProjector<TSource, TDestination> projector)
+        public ProjectionCollectionView(IReadOnlyList<TSource> source, IProjector<TSource, TDestination>? projector)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
             _projector = projector ?? throw new ArgumentNullException(nameof(projector));

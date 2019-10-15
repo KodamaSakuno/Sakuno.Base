@@ -9,7 +9,7 @@ namespace Sakuno.Reflection
     {
         public MethodInfo Method { get; }
 
-        Func<object, object[], object> _invoker;
+        Func<object, object[], object?> _invoker;
 
         public MethodInvoker(MethodInfo method)
         {
@@ -18,10 +18,10 @@ namespace Sakuno.Reflection
             _invoker = CreateInvokerCore(method);
         }
 
-        public object Invoke(object instance, params object[] args) =>
+        public object? Invoke(object instance, params object[] args) =>
             _invoker(instance, args);
 
-        static Func<object, object[], object> CreateInvokerCore(MethodInfo method)
+        static Func<object, object[], object?> CreateInvokerCore(MethodInfo method)
         {
             var instanceParameter = Expression.Parameter(typeof(object), "instance");
             var argsParameter = Expression.Parameter(typeof(object[]), "args");

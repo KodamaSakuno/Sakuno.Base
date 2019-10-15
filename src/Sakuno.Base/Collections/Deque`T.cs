@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -38,7 +39,7 @@ namespace Sakuno.Collections
 
         bool ICollection.IsSynchronized => false;
 
-        object _threadSyncLock;
+        object? _threadSyncLock;
         object ICollection.SyncRoot =>
             _threadSyncLock ?? Interlocked.CompareExchange(ref _threadSyncLock, new object(), null);
 
@@ -103,7 +104,7 @@ namespace Sakuno.Collections
                 throw new InvalidOperationException();
 
             var result = _array[_head];
-            _array[_head] = default;
+            _array[_head] = default!;
 
             _head = (_head + 1) % _array.Length;
             _count--;
@@ -119,7 +120,7 @@ namespace Sakuno.Collections
             _tail = (_tail + _array.Length - 1) % _array.Length;
 
             var result = _array[_tail];
-            _array[_tail] = default;
+            _array[_tail] = default!;
 
             _count--;
             _version++;
@@ -271,6 +272,8 @@ namespace Sakuno.Collections
 
             int _index;
 
+            [AllowNull]
+            [MaybeNull]
             T _current;
             public T Current
             {
@@ -282,7 +285,7 @@ namespace Sakuno.Collections
                     return _current;
                 }
             }
-            object IEnumerator.Current => Current;
+            object? IEnumerator.Current => Current;
 
             public Enumerator(Deque<T> owner)
             {
@@ -338,6 +341,8 @@ namespace Sakuno.Collections
 
             int _index;
 
+            [AllowNull]
+            [MaybeNull]
             T _current;
             public T Current
             {
@@ -349,7 +354,7 @@ namespace Sakuno.Collections
                     return _current;
                 }
             }
-            object IEnumerator.Current => Current;
+            object? IEnumerator.Current => Current;
 
             public ReverseEnumerator(Deque<T> owner)
             {

@@ -17,9 +17,9 @@ namespace Sakuno
 
         sealed class AnonymousDisposable : DisposableObject
         {
-            Action _action;
+            Action? _action;
 
-            public AnonymousDisposable(Action action)
+            public AnonymousDisposable(Action? action)
             {
                 _action = action;
             }

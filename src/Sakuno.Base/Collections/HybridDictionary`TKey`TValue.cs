@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Sakuno.Collections
 {
     public class HybridDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        ListDictionary<TKey, TValue> _listDictionary;
-        Dictionary<TKey, TValue> _dictionary;
+        ListDictionary<TKey, TValue>? _listDictionary;
+        Dictionary<TKey, TValue>? _dictionary;
 
-        IEqualityComparer<TKey> _comparer;
+        IEqualityComparer<TKey>? _comparer;
 
         public int Count
         {
@@ -56,7 +57,7 @@ namespace Sakuno.Collections
                 }
 
                 SwitchToDictionary();
-                _dictionary[key] = value;
+                _dictionary![key] = value;
             }
         }
 
@@ -100,7 +101,7 @@ namespace Sakuno.Collections
             _comparer = comparer;
         }
         public HybridDictionary(int capacity) : this(capacity, null) { }
-        public HybridDictionary(int capacity, IEqualityComparer<TKey> comparer)
+        public HybridDictionary(int capacity, IEqualityComparer<TKey>? comparer)
         {
             _comparer = comparer;
 
@@ -112,7 +113,7 @@ namespace Sakuno.Collections
         {
             var dictionary = new Dictionary<TKey, TValue>(13, _comparer);
 
-            foreach (var item in _listDictionary)
+            foreach (var item in _listDictionary!)
                 dictionary.Add(item.Key, item.Value);
 
             _dictionary = dictionary;
@@ -139,7 +140,7 @@ namespace Sakuno.Collections
             }
 
             SwitchToDictionary();
-            _dictionary.Add(key, value);
+            _dictionary!.Add(key, value);
         }
         public bool Remove(TKey key)
         {
@@ -176,7 +177,7 @@ namespace Sakuno.Collections
 
             return false;
         }
-        public bool TryGetValue(TKey key, out TValue value)
+        public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
         {
             if (_dictionary != null)
                 return _dictionary.TryGetValue(key, out value);
@@ -185,7 +186,7 @@ namespace Sakuno.Collections
             {
                 _listDictionary = new ListDictionary<TKey, TValue>(_comparer);
 
-                value = default;
+                value = default!;
                 return false;
             }
 

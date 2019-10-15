@@ -11,7 +11,7 @@ namespace Sakuno.Reflection
     {
         public static object FastInvoke(this ConstructorInfo construction, params object[] args) =>
             ReflectionCache.GetConstructorInvoker(construction).Invoke(args);
-        public static object FastInvoke(this MethodInfo method, object instance, params object[] args) =>
+        public static object? FastInvoke(this MethodInfo method, object instance, params object[] args) =>
             ReflectionCache.GetMethodInvoker(method).Invoke(instance, args);
 
         public static object FastGetValue(this FieldInfo field, object instance) =>
@@ -51,7 +51,7 @@ namespace Sakuno.Reflection
                 }).ToArray();
             })).Value;
         }
-        public static T FastGetCustomAttribute<T>(this Type type) where T : Attribute
+        public static T? FastGetCustomAttribute<T>(this Type type) where T : Attribute
         {
             var attributes = (T[])type.FastGetCustomAttributes<T>();
             if (attributes.Length == 0)

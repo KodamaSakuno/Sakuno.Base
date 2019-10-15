@@ -8,8 +8,8 @@ namespace Sakuno.Reflection
     {
         public PropertyInfo Property { get; }
 
-        Func<object, object> _getter;
-        Action<object, object> _setter;
+        Func<object, object>? _getter;
+        Action<object, object>? _setter;
 
         public PropertyAccessor(PropertyInfo property)
         {
@@ -34,7 +34,7 @@ namespace Sakuno.Reflection
             _setter(instance, value);
         }
 
-        static Func<object, object> CreateGetter(PropertyInfo property)
+        static Func<object, object>? CreateGetter(PropertyInfo property)
         {
             if (!property.CanRead)
                 return null;
@@ -48,7 +48,7 @@ namespace Sakuno.Reflection
 
             return Expression.Lambda<Func<object, object>>(castResult, instanceParameter).Compile();
         }
-        static Action<object, object> CreateSetter(PropertyInfo property)
+        static Action<object, object>? CreateSetter(PropertyInfo property)
         {
             if (!property.CanWrite)
                 return null;
