@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace Sakuno.Base.Tests
@@ -30,6 +31,9 @@ namespace Sakuno.Base.Tests
         [Fact]
         public static void ChineseCulture()
         {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return;
+
             var simplifiedChinese = CultureInfo.GetCultureInfo("zh-Hans");
             var chineseInChina = CultureInfo.GetCultureInfo("zh-CN");
 
