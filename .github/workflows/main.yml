@@ -11,6 +11,11 @@ jobs:
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
     steps:
+    - name: Setup .NET Core 3.0 on macOS
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.100
+      if: matrix.os == 'macos-latest'
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
