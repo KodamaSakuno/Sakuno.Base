@@ -56,28 +56,10 @@ namespace Sakuno.Collections
         }
 
         KeyCollection? _keys;
-        public ICollection<TKey> Keys
-        {
-            get
-            {
-                if (_keys == null)
-                    _keys = new KeyCollection(this);
-
-                return _keys;
-            }
-        }
+        public ICollection<TKey> Keys => _keys ??= new KeyCollection(this);
 
         ValueCollection? _values;
-        public ICollection<TValue> Values
-        {
-            get
-            {
-                if (_values == null)
-                    _values = new ValueCollection(this);
-
-                return _values;
-            }
-        }
+        public ICollection<TValue> Values => _values ??= new ValueCollection(this);
 
         bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => false;
 

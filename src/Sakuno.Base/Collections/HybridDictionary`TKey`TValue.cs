@@ -61,16 +61,8 @@ namespace Sakuno.Collections
             }
         }
 
-        ListDictionary<TKey, TValue> ListDictionary
-        {
-            get
-            {
-                if (_listDictionary == null)
-                    _listDictionary = new ListDictionary<TKey, TValue>(_comparer);
-
-                return _listDictionary;
-            }
-        }
+        ListDictionary<TKey, TValue> ListDictionary =>
+            _listDictionary ??= new ListDictionary<TKey, TValue>(_comparer);
 
         public ICollection<TKey> Keys
         {
